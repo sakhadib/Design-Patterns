@@ -1,3 +1,32 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using TemplateMethodPattern.AbstractTemplate;
+using TemplateMethodPattern.ConcreteSubclasses;
 
-Console.WriteLine("Hello, World!");
+class main
+{
+    public static void Main(string[] args)
+    {
+        DrinkMakerTemplate coffeeMaker = new CoffeeMaker();
+        coffeeMaker.MakeDrink();
+
+        Console.WriteLine("\n\n");
+        
+        DrinkMakerTemplate teaMaker = new TeaMaker();
+        teaMaker.MakeDrink();
+    }
+}
+
+/*
+ * Expected output:
+ 
+ * Boiling water...
+ * Brewing coffee...
+ * Pouring in cup...
+ * Adding sugar and milk...
+ * Serving...
+
+ * Boiling water...
+ * Steeping the tea...
+ * Pouring in cup...
+ * Adding lemon...
+ * Serving...
+ */
