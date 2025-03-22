@@ -51,6 +51,6 @@ You are developing a route finding system that supports multiple route methods (
     }
     ```
 
-This scenario demonstrates how to use the Strategy Pattern to handle different route algorithms in a route finding system. By implementing the Strategy Pattern, you can easily switch between different route methods without changing the client code.
+This scenario shows how to use the Strategy Pattern to handle different route algorithms in a route finding system. By implementing the Strategy Pattern, you can easily switch between different route methods without changing the client code.
 
 > Note : Program class is the part of client code which is using the strategy pattern to find the route. so it can have `if...else` or `switch` case to select the strategy at runtime.
