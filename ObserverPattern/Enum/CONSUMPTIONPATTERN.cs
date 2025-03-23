@@ -1,4 +1,4 @@
-﻿namespace HomeAutomate.Enum;
+﻿namespace ObserverPattern.Enum;
 
 public enum CONSUMPTIONPATTERN
 {

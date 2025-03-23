@@ -1,7 +1,7 @@
-﻿using HomeAutomate.Core;
-using HomeAutomate.Models;
+﻿using ObserverPattern.Core;
+using ObserverPattern.Models;
 
-namespace HomeAutomate.Executor;
+namespace ObserverPattern.Executor;
 
 public class TemperatureStateChangeExecutor : StateChangeExecutor
 {

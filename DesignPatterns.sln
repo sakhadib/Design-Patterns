@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxyPatterm", "ProxyPatter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandPattern", "CommandPattern\CommandPattern.csproj", "{9DEA1481-737E-4488-90AA-097B9D1EF812}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MementoPattern", "MementoPattern\MementoPattern.csproj", "{DAAA13F8-D6DF-4EC9-9CE4-7DC2F4E93621}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverPattern", "ObserverPattern\ObserverPattern.csproj", "{D8D856EF-52BE-4B19-BB76-B9BE0275CDA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +76,13 @@ Global
 		{9DEA1481-737E-4488-90AA-097B9D1EF812}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DEA1481-737E-4488-90AA-097B9D1EF812}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DEA1481-737E-4488-90AA-097B9D1EF812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAAA13F8-D6DF-4EC9-9CE4-7DC2F4E93621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAAA13F8-D6DF-4EC9-9CE4-7DC2F4E93621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAAA13F8-D6DF-4EC9-9CE4-7DC2F4E93621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAAA13F8-D6DF-4EC9-9CE4-7DC2F4E93621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8D856EF-52BE-4B19-BB76-B9BE0275CDA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8D856EF-52BE-4B19-BB76-B9BE0275CDA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8D856EF-52BE-4B19-BB76-B9BE0275CDA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8D856EF-52BE-4B19-BB76-B9BE0275CDA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

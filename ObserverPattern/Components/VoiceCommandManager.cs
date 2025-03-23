@@ -1,11 +1,11 @@
-﻿using HomeAutomate.Core;
-using HomeAutomate.Enum;
-using HomeAutomate.Executor;
-using HomeAutomate.Factory;
-using HomeAutomate.Interfaces;
-using HomeAutomate.Models;
+﻿using ObserverPattern.Core;
+using ObserverPattern.Enum;
+using ObserverPattern.Executor;
+using ObserverPattern.Factory;
+using ObserverPattern.Interfaces;
+using ObserverPattern.Models;
 
-namespace HomeAutomate.Components;
+namespace ObserverPattern.Components;
 
 public class VoiceCommandManager : ISmartHomeComponent
 {

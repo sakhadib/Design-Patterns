@@ -1,8 +1,8 @@
-﻿using HomeAutomate.Core;
-using HomeAutomate.Executor;
-using HomeAutomate.Models;
+﻿using ObserverPattern.Core;
+using ObserverPattern.Executor;
+using ObserverPattern.Models;
 
-namespace HomeAutomate.Factory;
+namespace ObserverPattern.Factory;
 
 public class ExecutorFactory
 {

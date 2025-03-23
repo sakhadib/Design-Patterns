@@ -1,8 +1,8 @@
-﻿using HomeAutomate.Enum;
-using HomeAutomate.Interfaces;
-using HomeAutomate.Models;
+﻿using ObserverPattern.Enum;
+using ObserverPattern.Interfaces;
+using ObserverPattern.Models;
 
-namespace HomeAutomate.Components;
+namespace ObserverPattern.Components;
 
 public class MotionDetector : ISmartHomeComponent
 {

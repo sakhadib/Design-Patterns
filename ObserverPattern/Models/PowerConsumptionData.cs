@@ -1,4 +1,4 @@
-﻿namespace HomeAutomate.Models;
+﻿namespace ObserverPattern.Models;
 
 public class PowerConsumptionData
 {

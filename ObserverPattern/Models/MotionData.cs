@@ -1,6 +1,6 @@
-﻿using HomeAutomate.Enum;
+﻿using ObserverPattern.Enum;
 
-namespace HomeAutomate.Models;
+namespace ObserverPattern.Models;
 
 public class MotionData
 {

@@ -1,4 +1,4 @@
-﻿namespace HomeAutomate.Factory;
+﻿namespace ObserverPattern.Factory;
 
 public class CommandFactory
 {

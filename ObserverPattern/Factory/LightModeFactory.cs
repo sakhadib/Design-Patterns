@@ -1,6 +1,6 @@
-﻿using HomeAutomate.Enum;
+﻿using ObserverPattern.Enum;
 
-namespace HomeAutomate.Factory;
+namespace ObserverPattern.Factory;
 
 public class LightModeFactory
 {

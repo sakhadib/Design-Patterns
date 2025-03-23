@@ -1,7 +1,7 @@
-﻿using HomeAutomate.Enum;
-using HomeAutomate.Models;
+﻿using ObserverPattern.Enum;
+using ObserverPattern.Models;
 
-namespace HomeAutomate.Interfaces;
+namespace ObserverPattern.Interfaces;
 
 public interface ISmartHomeComponent
 {
