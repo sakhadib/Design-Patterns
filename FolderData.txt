@@ -1,0 +1,1802 @@
+<FolderData>
+<File Name=.gitignore Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\.gitignore Size=57 Bytes Extension= ModificationTime=Sun Mar 23 01:58:28 2025 CreationTime=Sun Mar 23 01:56:12 2025>
+</File Name=.gitignore Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\.gitignore Size=57 Bytes Extension= ModificationTime=Sun Mar 23 01:58:28 2025 CreationTime=Sun Mar 23 01:56:12 2025>
+<Folder Level=0 Name=AdapterPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern>
+<README Content=﻿# Adapter Pattern
+
+## 1. Problem Statement
+
+In the modern world of online payments, there are many third-party services such as **Credit Card**, **PayPal**, and **Stripe** that offer different payment methods. Each service has its own way of processing payments, and often their APIs are not compatible with each other.
+
+For example, one service may require a `cardNumber`, `expiryDate`, and `securityCode`, while another may only need an `email` for processing payments. In such cases, it would be inefficient and cumbersome to modify your codebase every time you want to add a new payment method.
+
+The problem here is that different payment systems require different interfaces, making it difficult to integrate them in a consistent manner.
+
+## 2. Why Adapter is Used Here
+
+The **Adapter Pattern** is used to create a common interface (`IPaymentAdapter`) for all payment methods (Credit Card, PayPal, Stripe). The goal is to allow these different payment methods to be treated the same way by the client code, even though they have different interfaces.
+
+Without the Adapter pattern, the client code would need to know the specifics of each payment method’s implementation and interact with each one using different methods and arguments. The Adapter pattern allows the system to work with different third-party services uniformly by adapting their unique interfaces to a common interface, reducing complexity and coupling in the code.
+
+## 3. How Adapter is Implemented
+
+In the Adapter Pattern, we have the following key elements:
+
+- **Target Interface (`IPaymentAdapter`)**: This is the common interface that all adapters implement. It defines the method `ProcessPayment(double amount)`, which every adapter class will provide its implementation for.
+
+- **Adaptee Classes**: These are the third-party classes with their own unique interfaces that need to be adapted. In this case, the `CreditCardPayment`, `PaypalPayment`, and `StripePayment` classes are the Adaptee classes, each with its own method for processing payments.
+
+- **Adapter Classes (`CreditCardAdapter`, `PaypalAdapter`, `StripeAdapter`)**: These classes implement the target interface (`IPaymentAdapter`) and adapt the methods from the Adaptee classes. Each adapter class takes the parameters needed by the third-party service and internally calls the appropriate method on the Adaptee to process the payment.
+
+- **Client Code**: The client code interacts with the payment system through the `IPaymentAdapter` interface, which allows it to process payments without needing to know the specific details of each third-party service. The client can simply use the common method `ProcessPayment`, and the appropriate adapter will handle the specifics of interacting with the third-party service.
+
+## 4. What Benefits Adapter Provides Here More Than Using Direct Concrete Third Party
+
+1. **Decoupling**:
+    - The Adapter pattern decouples the client code from the specific implementation details of the third-party payment systems. The client code interacts only with the `IPaymentAdapter` interface, which allows for easier maintenance and future extension without modifying the client code.
+
+2. **Code Reusability**:
+    - The Adapter allows reusability by allowing the same interface (`IPaymentAdapter`) to be used across different payment methods. You can add new payment methods simply by creating a new adapter, without modifying the existing client code.
+
+3. **Flexibility**:
+    - If a new payment method needs to be added (say, Google Pay or Apple Pay), you can do so without affecting the existing code. You just need to implement a new adapter for the new payment method, which would integrate seamlessly with the existing client code.
+
+4. **Consistency**:
+    - With the Adapter pattern, you ensure that the client code interacts with all payment methods in a consistent manner, regardless of the underlying payment service. This leads to a simpler and more readable codebase.
+
+5. **Simplified Client Code**:
+    - Instead of having to deal with various methods and parameters for each payment service (e.g., different methods for PayPal, Credit Card, or Stripe), the client can simply call the `ProcessPayment` method on the adapter. This simplifies the logic and keeps the client code clean and easy to understand.
+
+6. **Avoiding Repetitive Code**:
+    - Without the Adapter pattern, the client would have to interact with each payment method individually, potentially leading to repetitive code for handling each type of payment. The Adapter pattern reduces this redundancy by centralizing the logic of each payment method in a single adapter class.
+
+### Conclusion
+
+The **Adapter Pattern** helps to standardize different interfaces under a common interface, making it easier for the client code to interact with various third-party services. It reduces complexity, promotes reusability, and ensures that your code remains flexible and maintainable.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\README.md>
+</README Content=﻿# Adapter Pattern
+
+## 1. Problem Statement
+
+In the modern world of online payments, there are many third-party services such as **Credit Card**, **PayPal**, and **Stripe** that offer different payment methods. Each service has its own way of processing payments, and often their APIs are not compatible with each other.
+
+For example, one service may require a `cardNumber`, `expiryDate`, and `securityCode`, while another may only need an `email` for processing payments. In such cases, it would be inefficient and cumbersome to modify your codebase every time you want to add a new payment method.
+
+The problem here is that different payment systems require different interfaces, making it difficult to integrate them in a consistent manner.
+
+## 2. Why Adapter is Used Here
+
+The **Adapter Pattern** is used to create a common interface (`IPaymentAdapter`) for all payment methods (Credit Card, PayPal, Stripe). The goal is to allow these different payment methods to be treated the same way by the client code, even though they have different interfaces.
+
+Without the Adapter pattern, the client code would need to know the specifics of each payment method’s implementation and interact with each one using different methods and arguments. The Adapter pattern allows the system to work with different third-party services uniformly by adapting their unique interfaces to a common interface, reducing complexity and coupling in the code.
+
+## 3. How Adapter is Implemented
+
+In the Adapter Pattern, we have the following key elements:
+
+- **Target Interface (`IPaymentAdapter`)**: This is the common interface that all adapters implement. It defines the method `ProcessPayment(double amount)`, which every adapter class will provide its implementation for.
+
+- **Adaptee Classes**: These are the third-party classes with their own unique interfaces that need to be adapted. In this case, the `CreditCardPayment`, `PaypalPayment`, and `StripePayment` classes are the Adaptee classes, each with its own method for processing payments.
+
+- **Adapter Classes (`CreditCardAdapter`, `PaypalAdapter`, `StripeAdapter`)**: These classes implement the target interface (`IPaymentAdapter`) and adapt the methods from the Adaptee classes. Each adapter class takes the parameters needed by the third-party service and internally calls the appropriate method on the Adaptee to process the payment.
+
+- **Client Code**: The client code interacts with the payment system through the `IPaymentAdapter` interface, which allows it to process payments without needing to know the specific details of each third-party service. The client can simply use the common method `ProcessPayment`, and the appropriate adapter will handle the specifics of interacting with the third-party service.
+
+## 4. What Benefits Adapter Provides Here More Than Using Direct Concrete Third Party
+
+1. **Decoupling**:
+    - The Adapter pattern decouples the client code from the specific implementation details of the third-party payment systems. The client code interacts only with the `IPaymentAdapter` interface, which allows for easier maintenance and future extension without modifying the client code.
+
+2. **Code Reusability**:
+    - The Adapter allows reusability by allowing the same interface (`IPaymentAdapter`) to be used across different payment methods. You can add new payment methods simply by creating a new adapter, without modifying the existing client code.
+
+3. **Flexibility**:
+    - If a new payment method needs to be added (say, Google Pay or Apple Pay), you can do so without affecting the existing code. You just need to implement a new adapter for the new payment method, which would integrate seamlessly with the existing client code.
+
+4. **Consistency**:
+    - With the Adapter pattern, you ensure that the client code interacts with all payment methods in a consistent manner, regardless of the underlying payment service. This leads to a simpler and more readable codebase.
+
+5. **Simplified Client Code**:
+    - Instead of having to deal with various methods and parameters for each payment service (e.g., different methods for PayPal, Credit Card, or Stripe), the client can simply call the `ProcessPayment` method on the adapter. This simplifies the logic and keeps the client code clean and easy to understand.
+
+6. **Avoiding Repetitive Code**:
+    - Without the Adapter pattern, the client would have to interact with each payment method individually, potentially leading to repetitive code for handling each type of payment. The Adapter pattern reduces this redundancy by centralizing the logic of each payment method in a single adapter class.
+
+### Conclusion
+
+The **Adapter Pattern** helps to standardize different interfaces under a common interface, making it easier for the client code to interact with various third-party services. It reduces complexity, promotes reusability, and ensures that your code remains flexible and maintainable.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\README.md>
+<Folder Level=1 Name=Adapter Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Adapter>
+<File Name=CreditCardAdapter.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Adapter\CreditCardAdapter.cs Size=732 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:16:50 2025>
+</File Name=CreditCardAdapter.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Adapter\CreditCardAdapter.cs Size=732 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:16:50 2025>
+<File Name=PaypalAdapter.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Adapter\PaypalAdapter.cs Size=461 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:19:30 2025>
+</File Name=PaypalAdapter.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Adapter\PaypalAdapter.cs Size=461 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:19:30 2025>
+<File Name=StripeAdapter.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Adapter\StripeAdapter.cs Size=595 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:20:31 2025>
+</File Name=StripeAdapter.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Adapter\StripeAdapter.cs Size=595 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:20:31 2025>
+</Folder Level=1 Name=Adapter Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Adapter>
+<File Name=AdapterPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\AdapterPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 14:16:50 2025 CreationTime=Sun Mar 23 14:12:08 2025>
+</File Name=AdapterPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\AdapterPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 14:16:50 2025 CreationTime=Sun Mar 23 14:12:08 2025>
+<Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Interface>
+<File Name=IPaymentAdapter.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Interface\IPaymentAdapter.cs Size=121 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:15:47 2025>
+</File Name=IPaymentAdapter.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Interface\IPaymentAdapter.cs Size=121 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:15:47 2025>
+</Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Interface>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Program.cs Size=553 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:12:08 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\Program.cs Size=553 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:12:08 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\readme.md Size=4986 Bytes Extension=.md ModificationTime=Sun Mar 23 14:29:51 2025 CreationTime=Sun Mar 23 14:28:34 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\readme.md Size=4986 Bytes Extension=.md ModificationTime=Sun Mar 23 14:29:51 2025 CreationTime=Sun Mar 23 14:28:34 2025>
+<Folder Level=1 Name=ThirdParty Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\ThirdParty>
+<File Name=CreditCardPayment.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\ThirdParty\CreditCardPayment.cs Size=345 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:14:55 2025 CreationTime=Sun Mar 23 14:13:28 2025>
+</File Name=CreditCardPayment.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\ThirdParty\CreditCardPayment.cs Size=345 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:14:55 2025 CreationTime=Sun Mar 23 14:13:28 2025>
+<File Name=PaypalPayment.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\ThirdParty\PaypalPayment.cs Size=249 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:14:55 2025 CreationTime=Sun Mar 23 14:14:30 2025>
+</File Name=PaypalPayment.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\ThirdParty\PaypalPayment.cs Size=249 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:14:55 2025 CreationTime=Sun Mar 23 14:14:30 2025>
+<File Name=StripePayment.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\ThirdParty\StripePayment.cs Size=311 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:15:06 2025>
+</File Name=StripePayment.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\ThirdParty\StripePayment.cs Size=311 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:23:12 2025 CreationTime=Sun Mar 23 14:15:06 2025>
+</Folder Level=1 Name=ThirdParty Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern\ThirdParty>
+</Folder Level=0 Name=AdapterPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\AdapterPattern>
+<Folder Level=0 Name=CommandPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern>
+<README Content=﻿# Command Pattern
+
+## 1. Problem Statement
+
+In collaborative document editing applications, users frequently perform various operations such as typing text, formatting it (bold, italics), inserting images or tables, and undoing or redoing actions. These actions need to be tracked efficiently, allowing users to step through changes (undo) or apply them again (redo). Additionally, handling multiple user actions while keeping track of changes and maintaining an audit trail can become complex.
+
+The system needs to:
+- Maintain a history of all actions for undo/redo functionality.
+- Track the state of the document after each action (e.g., text, bolding).
+- Support complex user interactions with real-time updates for collaborative editing.
+- Efficiently apply and revert commands for seamless user experience.
+
+The challenge is to manage these actions and their reversals while ensuring a clean separation of concerns, especially as the system grows in complexity.
+
+## 2. Solution Approach
+
+The **Command Pattern** provides a solution by encapsulating each action (e.g., adding text, bolding text) as a command object. Each command object knows how to execute its action and how to undo it. This decouples the request (e.g., the user action) from the execution, allowing for more flexible control over operations such as undo/redo.
+
+The **Command Pattern** also helps in tracking a history of commands. When a user performs an action, a command is created and stored in a history stack. The application can then execute or undo commands based on user input. For instance, when a user types text, an `AddTextCommand` is created and executed. If the user wants to undo this action, the command can be undone by reversing the text addition.
+
+Commands are independent, meaning that each command can handle a specific action, such as adding text or bolding it, without affecting other operations. This makes the system modular and extensible, as new actions can be added easily by creating new command classes.
+
+## 3. Why Command is the Best Approach
+
+The **Command Pattern** is ideal for this situation for the following reasons:
+
+1. **Decoupling of Sender and Receiver**:
+    - The Command Pattern decouples the object that sends the request (the user interaction) from the object that performs the action (e.g., the document editing system). This means that the application can handle various actions without needing to tightly bind the logic for execution to the user interface or other components.
+
+2. **Undo/Redo Functionality**:
+    - A key benefit of the Command Pattern is the ability to easily implement undo and redo functionality. Each command object knows how to undo its action, which means the system can track the sequence of actions and easily reverse them by calling the `Undo` method on the appropriate command.
+
+3. **Extensibility**:
+    - The Command Pattern makes it easy to add new operations. For example, if you want to add a new command to change the font size or insert an image, you simply create a new command class and integrate it into the existing system. This avoids modifying existing code and ensures the system remains flexible.
+
+4. **Centralized Command Management**:
+    - The Command Pattern allows for centralized management of all commands. The `Editor` class manages the execution and undoing of commands, which helps keep the application’s logic organized and easier to maintain.
+
+## 4. How Command Eases Life Here
+
+1. **Modular and Maintainable Code**:
+    - By encapsulating each action as a command, the code becomes more modular. Each action is encapsulated in its own class, making it easier to manage, extend, and maintain. The system's functionality is divided into separate command objects, making the system more manageable and reducing complexity.
+
+2. **Efficient Undo/Redo Mechanism**:
+    - The Command Pattern makes implementing undo/redo functionality simple. By maintaining a stack of executed commands, it’s straightforward to undo or redo actions. Each command knows how to reverse its action, providing an efficient and intuitive way to handle these operations without the need for complex state management.
+
+3. **Separation of Concerns**:
+    - The pattern separates the request for an action from the execution of that action. The `Editor` class is responsible for managing the command history and invoking commands, while the commands themselves know how to modify the document. This clear separation helps in making the code more readable and maintainable.
+
+4. **Scalability**:
+    - As the system grows and more actions need to be added (e.g., adding images, changing fonts, or applying different styles), the Command Pattern makes it easy to extend the system without modifying existing code. New command classes can be created to handle these new actions, and they can easily be integrated into the existing structure.
+
+5. **Enhanced User Experience**:
+    - The Command Pattern allows for efficient handling of user actions in a document editing application. Users can perform multiple actions, and the system ensures that each one is tracked, reversible, and re-applicable. This improves the user experience by offering features like real-time editing, easy undo/redo, and a clear history of changes.
+
+### Conclusion
+
+The **Command Pattern** is a powerful design pattern for managing complex user actions, particularly in scenarios that require undo/redo functionality. In the context of a document editing application, it simplifies the management of document modifications by encapsulating each action as a command. This decouples the logic for executing actions from the rest of the system, making the application more maintainable, extensible, and user-friendly.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\README.md>
+</README Content=﻿# Command Pattern
+
+## 1. Problem Statement
+
+In collaborative document editing applications, users frequently perform various operations such as typing text, formatting it (bold, italics), inserting images or tables, and undoing or redoing actions. These actions need to be tracked efficiently, allowing users to step through changes (undo) or apply them again (redo). Additionally, handling multiple user actions while keeping track of changes and maintaining an audit trail can become complex.
+
+The system needs to:
+- Maintain a history of all actions for undo/redo functionality.
+- Track the state of the document after each action (e.g., text, bolding).
+- Support complex user interactions with real-time updates for collaborative editing.
+- Efficiently apply and revert commands for seamless user experience.
+
+The challenge is to manage these actions and their reversals while ensuring a clean separation of concerns, especially as the system grows in complexity.
+
+## 2. Solution Approach
+
+The **Command Pattern** provides a solution by encapsulating each action (e.g., adding text, bolding text) as a command object. Each command object knows how to execute its action and how to undo it. This decouples the request (e.g., the user action) from the execution, allowing for more flexible control over operations such as undo/redo.
+
+The **Command Pattern** also helps in tracking a history of commands. When a user performs an action, a command is created and stored in a history stack. The application can then execute or undo commands based on user input. For instance, when a user types text, an `AddTextCommand` is created and executed. If the user wants to undo this action, the command can be undone by reversing the text addition.
+
+Commands are independent, meaning that each command can handle a specific action, such as adding text or bolding it, without affecting other operations. This makes the system modular and extensible, as new actions can be added easily by creating new command classes.
+
+## 3. Why Command is the Best Approach
+
+The **Command Pattern** is ideal for this situation for the following reasons:
+
+1. **Decoupling of Sender and Receiver**:
+    - The Command Pattern decouples the object that sends the request (the user interaction) from the object that performs the action (e.g., the document editing system). This means that the application can handle various actions without needing to tightly bind the logic for execution to the user interface or other components.
+
+2. **Undo/Redo Functionality**:
+    - A key benefit of the Command Pattern is the ability to easily implement undo and redo functionality. Each command object knows how to undo its action, which means the system can track the sequence of actions and easily reverse them by calling the `Undo` method on the appropriate command.
+
+3. **Extensibility**:
+    - The Command Pattern makes it easy to add new operations. For example, if you want to add a new command to change the font size or insert an image, you simply create a new command class and integrate it into the existing system. This avoids modifying existing code and ensures the system remains flexible.
+
+4. **Centralized Command Management**:
+    - The Command Pattern allows for centralized management of all commands. The `Editor` class manages the execution and undoing of commands, which helps keep the application’s logic organized and easier to maintain.
+
+## 4. How Command Eases Life Here
+
+1. **Modular and Maintainable Code**:
+    - By encapsulating each action as a command, the code becomes more modular. Each action is encapsulated in its own class, making it easier to manage, extend, and maintain. The system's functionality is divided into separate command objects, making the system more manageable and reducing complexity.
+
+2. **Efficient Undo/Redo Mechanism**:
+    - The Command Pattern makes implementing undo/redo functionality simple. By maintaining a stack of executed commands, it’s straightforward to undo or redo actions. Each command knows how to reverse its action, providing an efficient and intuitive way to handle these operations without the need for complex state management.
+
+3. **Separation of Concerns**:
+    - The pattern separates the request for an action from the execution of that action. The `Editor` class is responsible for managing the command history and invoking commands, while the commands themselves know how to modify the document. This clear separation helps in making the code more readable and maintainable.
+
+4. **Scalability**:
+    - As the system grows and more actions need to be added (e.g., adding images, changing fonts, or applying different styles), the Command Pattern makes it easy to extend the system without modifying existing code. New command classes can be created to handle these new actions, and they can easily be integrated into the existing structure.
+
+5. **Enhanced User Experience**:
+    - The Command Pattern allows for efficient handling of user actions in a document editing application. Users can perform multiple actions, and the system ensures that each one is tracked, reversible, and re-applicable. This improves the user experience by offering features like real-time editing, easy undo/redo, and a clear history of changes.
+
+### Conclusion
+
+The **Command Pattern** is a powerful design pattern for managing complex user actions, particularly in scenarios that require undo/redo functionality. In the context of a document editing application, it simplifies the management of document modifications by encapsulating each action as a command. This decouples the logic for executing actions from the rest of the system, making the application more maintainable, extensible, and user-friendly.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\README.md>
+<File Name=CommandPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\CommandPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 24 02:01:11 2025 CreationTime=Mon Mar 24 01:48:56 2025>
+</File Name=CommandPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\CommandPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 24 02:01:11 2025 CreationTime=Mon Mar 24 01:48:56 2025>
+<Folder Level=1 Name=Commands Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Commands>
+<File Name=AddTextCommand.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Commands\AddTextCommand.cs Size=744 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:55:49 2025 CreationTime=Mon Mar 24 01:54:31 2025>
+</File Name=AddTextCommand.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Commands\AddTextCommand.cs Size=744 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:55:49 2025 CreationTime=Mon Mar 24 01:54:31 2025>
+<File Name=BoldCommand.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Commands\BoldCommand.cs Size=422 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:55:00 2025 CreationTime=Mon Mar 24 01:52:02 2025>
+</File Name=BoldCommand.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Commands\BoldCommand.cs Size=422 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:55:00 2025 CreationTime=Mon Mar 24 01:52:02 2025>
+<File Name=UnBoldCommand.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Commands\UnBoldCommand.cs Size=420 Bytes Extension=.cs ModificationTime=Mon Mar 24 02:00:50 2025 CreationTime=Mon Mar 24 01:56:10 2025>
+</File Name=UnBoldCommand.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Commands\UnBoldCommand.cs Size=420 Bytes Extension=.cs ModificationTime=Mon Mar 24 02:00:50 2025 CreationTime=Mon Mar 24 01:56:10 2025>
+</Folder Level=1 Name=Commands Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Commands>
+<Folder Level=1 Name=Core Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Core>
+<File Name=Document.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Core\Document.cs Size=515 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:52:11 2025 CreationTime=Mon Mar 24 01:51:22 2025>
+</File Name=Document.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Core\Document.cs Size=515 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:52:11 2025 CreationTime=Mon Mar 24 01:51:22 2025>
+</Folder Level=1 Name=Core Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Core>
+<Folder Level=1 Name=Interfaces Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Interfaces>
+<File Name=ICommand.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Interfaces\ICommand.cs Size=113 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:51:00 2025 CreationTime=Mon Mar 24 01:50:42 2025>
+</File Name=ICommand.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Interfaces\ICommand.cs Size=113 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:51:00 2025 CreationTime=Mon Mar 24 01:50:42 2025>
+</Folder Level=1 Name=Interfaces Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Interfaces>
+<Folder Level=1 Name=Invoker Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Invoker>
+<File Name=Editor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Invoker\Editor.cs Size=660 Bytes Extension=.cs ModificationTime=Mon Mar 24 02:19:59 2025 CreationTime=Mon Mar 24 02:01:11 2025>
+</File Name=Editor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Invoker\Editor.cs Size=660 Bytes Extension=.cs ModificationTime=Mon Mar 24 02:19:59 2025 CreationTime=Mon Mar 24 02:01:11 2025>
+</Folder Level=1 Name=Invoker Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Invoker>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Program.cs Size=1181 Bytes Extension=.cs ModificationTime=Mon Mar 24 02:20:45 2025 CreationTime=Mon Mar 24 01:48:56 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\Program.cs Size=1181 Bytes Extension=.cs ModificationTime=Mon Mar 24 02:20:45 2025 CreationTime=Mon Mar 24 01:48:56 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\readme.md Size=5800 Bytes Extension=.md ModificationTime=Mon Mar 24 02:25:25 2025 CreationTime=Mon Mar 24 02:25:06 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern\readme.md Size=5800 Bytes Extension=.md ModificationTime=Mon Mar 24 02:25:25 2025 CreationTime=Mon Mar 24 02:25:06 2025>
+</Folder Level=0 Name=CommandPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CommandPattern>
+<Folder Level=0 Name=CompositePattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern>
+<README Content=﻿# Composite Pattern
+
+## Problem Scenario
+
+Imagine you're designing a file system where files and folders need to be represented. Folders can contain files as well as other folders, and files cannot contain other files or folders. The goal is to create a flexible and easy-to-use system that can display the hierarchical structure of files and folders.
+
+Without the **Composite Pattern**, you would have to treat files and folders as distinct entities. You would likely create separate classes for files and folders and then implement a separate logic for handling each. This would make it difficult to manage the file system as the number of folders and files grows.
+
+## Solution Approach
+
+The **Composite Pattern** is a structural design pattern that allows you to treat individual objects and compositions of objects uniformly. It is particularly useful when dealing with tree-like structures, where both leaf and composite nodes share the same interface.
+
+### Key Components:
+
+1. **Component Interface (`IFileSystemComponent`)**:
+   - This interface defines a method `Display(int indentLevel)`, which will be implemented by both the leaf and composite objects. This allows the client code to treat both files and folders in the same way, making it easier to manage.
+
+2. **Leaf (`ShuvroFile`)**:
+   - This class represents a file, which is a leaf node in the composite structure. It implements the `Display` method to show the file's name.
+
+3. **Composite (`Folder`)**:
+   - This class represents a folder, which is a composite node. It contains a list of `IFileSystemComponent` objects, allowing it to hold both files and other folders. It also implements the `Display` method to show the folder's name and recursively display the contents inside.
+
+### Flow:
+- The `Folder` class can hold both files and other folders, and the `ShuvroFile` class represents the individual files.
+- When displaying the file system structure, the `Display` method recursively traverses the hierarchy, printing the names of all files and folders with proper indentation to reflect the hierarchy.
+
+## How This Pattern Makes Life Easier (More Maintainable Code)
+
+1. **Uniform Treatment of Objects**: 
+   - The Composite Pattern allows you to treat individual objects (files) and compositions of objects (folders) uniformly. This simplifies the client code because it does not need to differentiate between files and folders when performing operations like displaying the structure.
+
+2. **Extensibility**: 
+   - You can easily add new types of components (e.g., different types of files or more complex folders) without modifying the existing code. You simply need to implement the `IFileSystemComponent` interface and include the new component in the existing hierarchy.
+
+3. **Recursive Structure**: 
+   - The pattern naturally supports recursive structures (like a folder containing other folders), making it easy to represent tree-like data. This is especially useful when dealing with hierarchical systems, like file systems.
+
+4. **Flexible Hierarchy**:
+   - The structure can grow or change dynamically. You can add or remove files or folders at any level without disrupting the overall system. Each component (file or folder) is responsible for its own behavior, making the code more maintainable and adaptable.
+
+5. **Simplified Client Code**: 
+   - The client code can interact with files and folders through the common interface `IFileSystemComponent`, eliminating the need for conditional checks to handle files and folders separately. This makes the code simpler and cleaner.
+
+### Example Output
+
+```text
+File System Structure:
+[folder] : RootFolder
+    [folder] : Folder1
+        [file] : Document1.txt
+        [file] : Image1.jpg
+    [folder] : Folder2
+        [file] : Document2.txt
+        [folder] : Folder3
+            [file] : Image2.jpg
+            [file] : Document3.txt
+```
+
+### Conclusion
+
+The **Composite Pattern** allows you to manage complex hierarchical structures by treating individual objects and their compositions in a uniform way. In the case of a file system, both files and folders are treated as `IFileSystemComponent` objects, simplifying the client code and making the system easier to maintain and extend. This pattern is particularly useful for working with tree-like structures, where objects can be nested inside other objects, and operations on them can be standardized.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\README.md>
+</README Content=﻿# Composite Pattern
+
+## Problem Scenario
+
+Imagine you're designing a file system where files and folders need to be represented. Folders can contain files as well as other folders, and files cannot contain other files or folders. The goal is to create a flexible and easy-to-use system that can display the hierarchical structure of files and folders.
+
+Without the **Composite Pattern**, you would have to treat files and folders as distinct entities. You would likely create separate classes for files and folders and then implement a separate logic for handling each. This would make it difficult to manage the file system as the number of folders and files grows.
+
+## Solution Approach
+
+The **Composite Pattern** is a structural design pattern that allows you to treat individual objects and compositions of objects uniformly. It is particularly useful when dealing with tree-like structures, where both leaf and composite nodes share the same interface.
+
+### Key Components:
+
+1. **Component Interface (`IFileSystemComponent`)**:
+   - This interface defines a method `Display(int indentLevel)`, which will be implemented by both the leaf and composite objects. This allows the client code to treat both files and folders in the same way, making it easier to manage.
+
+2. **Leaf (`ShuvroFile`)**:
+   - This class represents a file, which is a leaf node in the composite structure. It implements the `Display` method to show the file's name.
+
+3. **Composite (`Folder`)**:
+   - This class represents a folder, which is a composite node. It contains a list of `IFileSystemComponent` objects, allowing it to hold both files and other folders. It also implements the `Display` method to show the folder's name and recursively display the contents inside.
+
+### Flow:
+- The `Folder` class can hold both files and other folders, and the `ShuvroFile` class represents the individual files.
+- When displaying the file system structure, the `Display` method recursively traverses the hierarchy, printing the names of all files and folders with proper indentation to reflect the hierarchy.
+
+## How This Pattern Makes Life Easier (More Maintainable Code)
+
+1. **Uniform Treatment of Objects**: 
+   - The Composite Pattern allows you to treat individual objects (files) and compositions of objects (folders) uniformly. This simplifies the client code because it does not need to differentiate between files and folders when performing operations like displaying the structure.
+
+2. **Extensibility**: 
+   - You can easily add new types of components (e.g., different types of files or more complex folders) without modifying the existing code. You simply need to implement the `IFileSystemComponent` interface and include the new component in the existing hierarchy.
+
+3. **Recursive Structure**: 
+   - The pattern naturally supports recursive structures (like a folder containing other folders), making it easy to represent tree-like data. This is especially useful when dealing with hierarchical systems, like file systems.
+
+4. **Flexible Hierarchy**:
+   - The structure can grow or change dynamically. You can add or remove files or folders at any level without disrupting the overall system. Each component (file or folder) is responsible for its own behavior, making the code more maintainable and adaptable.
+
+5. **Simplified Client Code**: 
+   - The client code can interact with files and folders through the common interface `IFileSystemComponent`, eliminating the need for conditional checks to handle files and folders separately. This makes the code simpler and cleaner.
+
+### Example Output
+
+```text
+File System Structure:
+[folder] : RootFolder
+    [folder] : Folder1
+        [file] : Document1.txt
+        [file] : Image1.jpg
+    [folder] : Folder2
+        [file] : Document2.txt
+        [folder] : Folder3
+            [file] : Image2.jpg
+            [file] : Document3.txt
+```
+
+### Conclusion
+
+The **Composite Pattern** allows you to manage complex hierarchical structures by treating individual objects and their compositions in a uniform way. In the case of a file system, both files and folders are treated as `IFileSystemComponent` objects, simplifying the client code and making the system easier to maintain and extend. This pattern is particularly useful for working with tree-like structures, where objects can be nested inside other objects, and operations on them can be standardized.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\README.md>
+<Folder Level=1 Name=Composite Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Composite>
+<File Name=Folder.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Composite\Folder.cs Size=837 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:33:22 2025 CreationTime=Sun Mar 23 04:22:32 2025>
+</File Name=Folder.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Composite\Folder.cs Size=837 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:33:22 2025 CreationTime=Sun Mar 23 04:22:32 2025>
+</Folder Level=1 Name=Composite Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Composite>
+<File Name=CompositePattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\CompositePattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 04:22:32 2025 CreationTime=Sun Mar 23 04:16:41 2025>
+</File Name=CompositePattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\CompositePattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 04:22:32 2025 CreationTime=Sun Mar 23 04:16:41 2025>
+<Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Interface>
+<File Name=IFileSystemComponent.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Interface\IFileSystemComponent.cs Size=123 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:21:41 2025 CreationTime=Sun Mar 23 04:19:58 2025>
+</File Name=IFileSystemComponent.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Interface\IFileSystemComponent.cs Size=123 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:21:41 2025 CreationTime=Sun Mar 23 04:19:58 2025>
+</Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Interface>
+<Folder Level=1 Name=Leaf Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Leaf>
+<File Name=ShuvroFile.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Leaf\ShuvroFile.cs Size=385 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:33:22 2025 CreationTime=Sun Mar 23 04:20:27 2025>
+</File Name=ShuvroFile.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Leaf\ShuvroFile.cs Size=385 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:33:22 2025 CreationTime=Sun Mar 23 04:20:27 2025>
+</Folder Level=1 Name=Leaf Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Leaf>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Program.cs Size=1476 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:35:00 2025 CreationTime=Sun Mar 23 04:16:41 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\Program.cs Size=1476 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:35:00 2025 CreationTime=Sun Mar 23 04:16:41 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\readme.md Size=4457 Bytes Extension=.md ModificationTime=Sun Mar 23 04:37:39 2025 CreationTime=Sun Mar 23 04:37:03 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern\readme.md Size=4457 Bytes Extension=.md ModificationTime=Sun Mar 23 04:37:39 2025 CreationTime=Sun Mar 23 04:37:03 2025>
+</Folder Level=0 Name=CompositePattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\CompositePattern>
+<File Name=data.py Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\data.py Size=3478 Bytes Extension=.py ModificationTime=Mon Mar 24 03:19:44 2025 CreationTime=Mon Mar 24 03:12:39 2025>
+</File Name=data.py Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\data.py Size=3478 Bytes Extension=.py ModificationTime=Mon Mar 24 03:19:44 2025 CreationTime=Mon Mar 24 03:12:39 2025>
+<Folder Level=0 Name=DecoratorPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern>
+<README Content=﻿# Decorator Pattern
+
+## Problem Scenario
+
+Imagine you're building a coffee shop application where customers can order coffee with various customizations. The basic coffee can be enhanced by adding ingredients such as milk, sugar, or whipped cream. Each customization should not modify the basic coffee object itself but should add behavior on top of it.
+
+Without the Decorator Pattern, you would need to subclass `Coffee` for every possible combination of customizations (e.g., `MilkCoffee`, `SugarCoffee`, `MilkSugarCoffee`, etc.), leading to a combinatorial explosion of classes.
+
+## Solution Approach
+
+The **Decorator Pattern** is a structural design pattern that allows you to dynamically add behavior or responsibilities to an object. Instead of creating a new subclass for each combination of customizations, we create decorators that wrap the original object (in this case, `Coffee`) and add the extra functionality.
+
+### Key Components:
+
+1. **Base Component (`Coffee`)**:
+    - This is an abstract class that defines the essential methods (`Brew` and `Cost`) that will be shared across all coffee types.
+
+2. **Concrete Component (`SimpleCoffee`)**:
+    - This class represents a basic coffee without any customizations. It implements the abstract methods and provides default behavior.
+
+3. **Decorator (`CoffeeDecorator`)**:
+    - This is an abstract class that extends the `Coffee` class and contains a reference to a `Coffee` object. The decorator forwards method calls to the wrapped `Coffee` object and can add additional behavior.
+
+4. **Concrete Decorators (`MilkDecorator`, `SugarDecorator`, `WhippedCreamDecorator`)**:
+    - These decorators add specific functionalities (like milk, sugar, or whipped cream) to the base coffee object by overriding the `Brew` and `Cost` methods.
+
+### Flow:
+- The client code starts with a basic coffee object (`SimpleCoffee`) and then decorates it step-by-step by wrapping it with different decorators (`MilkDecorator`, `SugarDecorator`, etc.).
+- The decorators modify the behavior of the original object without altering its structure, offering flexibility for future customizations.
+
+## How This Pattern Makes Life Easier (More Maintainable Code)
+
+1. **Open/Closed Principle**:
+    - The Decorator Pattern follows the Open/Closed Principle (OCP), which means that the code is open for extension but closed for modification. Instead of modifying existing classes, you can extend the functionality by creating new decorators. This makes your codebase more flexible and easier to extend without modifying existing code.
+
+2. **Avoids Class Explosion**:
+    - If we were to create a subclass for every possible combination of customizations (e.g., `MilkCoffee`, `SugarCoffee`, etc.), we would end up with an unmanageable number of classes. The Decorator Pattern helps us avoid this "class explosion" by using a single decorator for each customization and applying them in combination as needed.
+
+3. **Better Code Reusability**:
+    - Decorators are reusable across different components. You can apply them to any `Coffee` object, whether it's a simple coffee or another type of decorated coffee. This helps you avoid code duplication and makes the system more maintainable.
+
+4. **Enhances Flexibility**:
+    - The pattern allows for a high level of flexibility as you can combine multiple decorators in different orders. This means that each time the program runs, it can create different coffee combinations dynamically.
+
+5. **Single Responsibility**:
+    - Each decorator is responsible for only one additional feature (milk, sugar, whipped cream), which keeps the code more modular and easier to maintain or extend.
+
+### Conclusion
+
+The **Decorator Pattern** is an excellent way to dynamically add behavior to objects without altering their base structure. By using this pattern, we avoid subclassing and allow for easy customization and extension of the functionality. It makes your code more maintainable, flexible, and adheres to best practices like the Open/Closed Principle.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\README.md>
+</README Content=﻿# Decorator Pattern
+
+## Problem Scenario
+
+Imagine you're building a coffee shop application where customers can order coffee with various customizations. The basic coffee can be enhanced by adding ingredients such as milk, sugar, or whipped cream. Each customization should not modify the basic coffee object itself but should add behavior on top of it.
+
+Without the Decorator Pattern, you would need to subclass `Coffee` for every possible combination of customizations (e.g., `MilkCoffee`, `SugarCoffee`, `MilkSugarCoffee`, etc.), leading to a combinatorial explosion of classes.
+
+## Solution Approach
+
+The **Decorator Pattern** is a structural design pattern that allows you to dynamically add behavior or responsibilities to an object. Instead of creating a new subclass for each combination of customizations, we create decorators that wrap the original object (in this case, `Coffee`) and add the extra functionality.
+
+### Key Components:
+
+1. **Base Component (`Coffee`)**:
+    - This is an abstract class that defines the essential methods (`Brew` and `Cost`) that will be shared across all coffee types.
+
+2. **Concrete Component (`SimpleCoffee`)**:
+    - This class represents a basic coffee without any customizations. It implements the abstract methods and provides default behavior.
+
+3. **Decorator (`CoffeeDecorator`)**:
+    - This is an abstract class that extends the `Coffee` class and contains a reference to a `Coffee` object. The decorator forwards method calls to the wrapped `Coffee` object and can add additional behavior.
+
+4. **Concrete Decorators (`MilkDecorator`, `SugarDecorator`, `WhippedCreamDecorator`)**:
+    - These decorators add specific functionalities (like milk, sugar, or whipped cream) to the base coffee object by overriding the `Brew` and `Cost` methods.
+
+### Flow:
+- The client code starts with a basic coffee object (`SimpleCoffee`) and then decorates it step-by-step by wrapping it with different decorators (`MilkDecorator`, `SugarDecorator`, etc.).
+- The decorators modify the behavior of the original object without altering its structure, offering flexibility for future customizations.
+
+## How This Pattern Makes Life Easier (More Maintainable Code)
+
+1. **Open/Closed Principle**:
+    - The Decorator Pattern follows the Open/Closed Principle (OCP), which means that the code is open for extension but closed for modification. Instead of modifying existing classes, you can extend the functionality by creating new decorators. This makes your codebase more flexible and easier to extend without modifying existing code.
+
+2. **Avoids Class Explosion**:
+    - If we were to create a subclass for every possible combination of customizations (e.g., `MilkCoffee`, `SugarCoffee`, etc.), we would end up with an unmanageable number of classes. The Decorator Pattern helps us avoid this "class explosion" by using a single decorator for each customization and applying them in combination as needed.
+
+3. **Better Code Reusability**:
+    - Decorators are reusable across different components. You can apply them to any `Coffee` object, whether it's a simple coffee or another type of decorated coffee. This helps you avoid code duplication and makes the system more maintainable.
+
+4. **Enhances Flexibility**:
+    - The pattern allows for a high level of flexibility as you can combine multiple decorators in different orders. This means that each time the program runs, it can create different coffee combinations dynamically.
+
+5. **Single Responsibility**:
+    - Each decorator is responsible for only one additional feature (milk, sugar, whipped cream), which keeps the code more modular and easier to maintain or extend.
+
+### Conclusion
+
+The **Decorator Pattern** is an excellent way to dynamically add behavior to objects without altering their base structure. By using this pattern, we avoid subclassing and allow for easy customization and extension of the functionality. It makes your code more maintainable, flexible, and adheres to best practices like the Open/Closed Principle.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\README.md>
+<Folder Level=1 Name=Base Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\Base>
+<File Name=Coffee.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\Base\Coffee.cs Size=148 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:51:39 2025>
+</File Name=Coffee.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\Base\Coffee.cs Size=148 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:51:39 2025>
+</Folder Level=1 Name=Base Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\Base>
+<Folder Level=1 Name=BaseDecorator Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\BaseDecorator>
+<File Name=CoffeeDecorator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\BaseDecorator\CoffeeDecorator.cs Size=424 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:56:21 2025>
+</File Name=CoffeeDecorator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\BaseDecorator\CoffeeDecorator.cs Size=424 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:56:21 2025>
+</Folder Level=1 Name=BaseDecorator Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\BaseDecorator>
+<Folder Level=1 Name=ConcreteComponent Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteComponent>
+<File Name=IceCoffeeComponent.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteComponent\IceCoffeeComponent.cs Size=295 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:55:40 2025>
+</File Name=IceCoffeeComponent.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteComponent\IceCoffeeComponent.cs Size=295 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:55:40 2025>
+<File Name=SimpleCoffeeComponent.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteComponent\SimpleCoffeeComponent.cs Size=307 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:53:09 2025>
+</File Name=SimpleCoffeeComponent.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteComponent\SimpleCoffeeComponent.cs Size=307 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:53:09 2025>
+</Folder Level=1 Name=ConcreteComponent Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteComponent>
+<Folder Level=1 Name=ConcreteDecorator Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteDecorator>
+<File Name=MilkDecorator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteDecorator\MilkDecorator.cs Size=436 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:58:23 2025>
+</File Name=MilkDecorator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteDecorator\MilkDecorator.cs Size=436 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 03:58:23 2025>
+<File Name=SugarDecorator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteDecorator\SugarDecorator.cs Size=439 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:06:43 2025 CreationTime=Sun Mar 23 04:01:46 2025>
+</File Name=SugarDecorator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteDecorator\SugarDecorator.cs Size=439 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:06:43 2025 CreationTime=Sun Mar 23 04:01:46 2025>
+<File Name=WhippedCreamDecorator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteDecorator\WhippedCreamDecorator.cs Size=461 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 04:03:26 2025>
+</File Name=WhippedCreamDecorator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteDecorator\WhippedCreamDecorator.cs Size=461 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:04:31 2025 CreationTime=Sun Mar 23 04:03:26 2025>
+</Folder Level=1 Name=ConcreteDecorator Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\ConcreteDecorator>
+<File Name=DecoratorPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\DecoratorPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 03:58:23 2025 CreationTime=Sun Mar 23 03:48:19 2025>
+</File Name=DecoratorPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\DecoratorPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 03:58:23 2025 CreationTime=Sun Mar 23 03:48:19 2025>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\Program.cs Size=1105 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:08:08 2025 CreationTime=Sun Mar 23 03:48:19 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\Program.cs Size=1105 Bytes Extension=.cs ModificationTime=Sun Mar 23 04:08:08 2025 CreationTime=Sun Mar 23 03:48:19 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\readme.md Size=4081 Bytes Extension=.md ModificationTime=Sun Mar 23 04:11:04 2025 CreationTime=Sun Mar 23 03:49:34 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern\readme.md Size=4081 Bytes Extension=.md ModificationTime=Sun Mar 23 04:11:04 2025 CreationTime=Sun Mar 23 03:49:34 2025>
+</Folder Level=0 Name=DecoratorPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DecoratorPattern>
+<File Name=DesignPatterns.sln Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DesignPatterns.sln Size=6837 Bytes Extension=.sln ModificationTime=Mon Mar 24 03:01:49 2025 CreationTime=Sun Mar 23 00:51:04 2025>
+</File Name=DesignPatterns.sln Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\DesignPatterns.sln Size=6837 Bytes Extension=.sln ModificationTime=Mon Mar 24 03:01:49 2025 CreationTime=Sun Mar 23 00:51:04 2025>
+<Folder Level=0 Name=FacadePattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern>
+<README Content=﻿# Facade Pattern
+
+## 1. Problem Statement
+
+In modern smart homes, multiple systems are responsible for different functionalities like lighting, security, temperature control, and entertainment. Each system has its own set of complex functionalities and interfaces. Without a centralized way to manage these systems, the user would need to interact with each system individually to perform a common task, such as starting a movie or setting up a party.
+
+For example, starting a movie mode could involve adjusting the temperature, controlling the lights, activating the security camera, and locking the doors. Each of these actions would require interacting with different subsystems through their own interfaces, which can lead to a confusing and error-prone experience.
+
+The problem here is that the systems are tightly coupled, and interacting with each of them directly requires knowledge of the various interfaces and actions, which complicates the user experience.
+
+## 2. Solution Approach
+
+The **Facade Pattern** provides a simplified interface to a complex subsystem by encapsulating the complexities of the various subsystems behind a unified interface. The goal is to provide a higher-level interface that hides the complexity and interactions between the different systems.
+
+In this case, the **HomeSystemFacade** serves as the facade that unifies multiple subsystems, such as the lighting system, security camera, temperature control, and smart lock. It provides simple methods like `StartMovieMode()`, `StartPartyMode()`, and `StartSleepMode()` that the client can use without needing to understand or interact with each individual system.
+
+By using the Facade Pattern, we can streamline the user experience, making it easier to perform complex actions with a single method call.
+
+## 3. Why Facade is the Best Approach
+
+The **Facade Pattern** is ideal here because it solves the following problems:
+
+1. **Simplification**: Facade abstracts the complexities of multiple systems and exposes only the necessary operations to the client, which reduces the amount of code the client needs to interact with.
+
+2. **Decoupling**: It decouples the client code from the internal workings of the subsystems, making the system easier to maintain and extend. The client does not need to know the intricacies of how each system interacts; it only interacts with the facade.
+
+3. **Centralized Management**: Instead of managing each subsystem individually, the facade centralizes control over all subsystems, making it easier to apply uniform changes to how these subsystems interact.
+
+4. **Ease of Extension**: If a new subsystem (e.g., a new type of light system or security camera) needs to be added, it can be easily integrated into the facade without affecting the client code. The facade will just call the new subsystem in the same unified way.
+
+## 4. How Facade Eases Life Here
+
+1. **Streamlined User Experience**:
+    - The facade simplifies complex operations by allowing the user to interact with the home system through a few high-level commands like `StartMovieMode()`, `StartPartyMode()`, and `StartSleepMode()`. The client does not need to worry about the individual subsystems or how they should be configured.
+
+2. **Reduced Cognitive Load**:
+    - Instead of dealing with multiple systems like temperature controllers, security cameras, and lights, the user can simply call a single method from the `HomeSystemFacade`. This reduces the mental effort needed to manage the various systems.
+
+3. **Easier Maintenance**:
+    - By centralizing the control of subsystems, any changes to the underlying systems (like adding new functionality or modifying behavior) can be made in the facade or within the subsystems themselves without affecting the client code. The client code remains unaffected and does not need to be updated whenever a new subsystem is added or an existing one changes.
+
+4. **Unified Interface**:
+    - The facade provides a clean and unified interface to the user, making the system more user-friendly. The user doesn't need to interact with each subsystem’s methods individually, reducing the chance of errors and inconsistencies.
+
+5. **Extensibility**:
+    - If the system needs additional functionality, such as a "VacationMode" or "AlarmMode," the facade can be extended to support these modes without requiring the client to change. The facade can interact with any number of subsystems in the background while exposing a consistent and simplified interface.
+
+### Conclusion
+
+The **Facade Pattern** is a powerful way to simplify the interaction with complex systems. In this case, it unifies multiple home automation systems into a single, easy-to-use interface, making the user experience much smoother and more intuitive. By hiding the complexities of individual subsystems, it not only eases the client's life but also enhances the maintainability and flexibility of the entire system.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\README.md>
+</README Content=﻿# Facade Pattern
+
+## 1. Problem Statement
+
+In modern smart homes, multiple systems are responsible for different functionalities like lighting, security, temperature control, and entertainment. Each system has its own set of complex functionalities and interfaces. Without a centralized way to manage these systems, the user would need to interact with each system individually to perform a common task, such as starting a movie or setting up a party.
+
+For example, starting a movie mode could involve adjusting the temperature, controlling the lights, activating the security camera, and locking the doors. Each of these actions would require interacting with different subsystems through their own interfaces, which can lead to a confusing and error-prone experience.
+
+The problem here is that the systems are tightly coupled, and interacting with each of them directly requires knowledge of the various interfaces and actions, which complicates the user experience.
+
+## 2. Solution Approach
+
+The **Facade Pattern** provides a simplified interface to a complex subsystem by encapsulating the complexities of the various subsystems behind a unified interface. The goal is to provide a higher-level interface that hides the complexity and interactions between the different systems.
+
+In this case, the **HomeSystemFacade** serves as the facade that unifies multiple subsystems, such as the lighting system, security camera, temperature control, and smart lock. It provides simple methods like `StartMovieMode()`, `StartPartyMode()`, and `StartSleepMode()` that the client can use without needing to understand or interact with each individual system.
+
+By using the Facade Pattern, we can streamline the user experience, making it easier to perform complex actions with a single method call.
+
+## 3. Why Facade is the Best Approach
+
+The **Facade Pattern** is ideal here because it solves the following problems:
+
+1. **Simplification**: Facade abstracts the complexities of multiple systems and exposes only the necessary operations to the client, which reduces the amount of code the client needs to interact with.
+
+2. **Decoupling**: It decouples the client code from the internal workings of the subsystems, making the system easier to maintain and extend. The client does not need to know the intricacies of how each system interacts; it only interacts with the facade.
+
+3. **Centralized Management**: Instead of managing each subsystem individually, the facade centralizes control over all subsystems, making it easier to apply uniform changes to how these subsystems interact.
+
+4. **Ease of Extension**: If a new subsystem (e.g., a new type of light system or security camera) needs to be added, it can be easily integrated into the facade without affecting the client code. The facade will just call the new subsystem in the same unified way.
+
+## 4. How Facade Eases Life Here
+
+1. **Streamlined User Experience**:
+    - The facade simplifies complex operations by allowing the user to interact with the home system through a few high-level commands like `StartMovieMode()`, `StartPartyMode()`, and `StartSleepMode()`. The client does not need to worry about the individual subsystems or how they should be configured.
+
+2. **Reduced Cognitive Load**:
+    - Instead of dealing with multiple systems like temperature controllers, security cameras, and lights, the user can simply call a single method from the `HomeSystemFacade`. This reduces the mental effort needed to manage the various systems.
+
+3. **Easier Maintenance**:
+    - By centralizing the control of subsystems, any changes to the underlying systems (like adding new functionality or modifying behavior) can be made in the facade or within the subsystems themselves without affecting the client code. The client code remains unaffected and does not need to be updated whenever a new subsystem is added or an existing one changes.
+
+4. **Unified Interface**:
+    - The facade provides a clean and unified interface to the user, making the system more user-friendly. The user doesn't need to interact with each subsystem’s methods individually, reducing the chance of errors and inconsistencies.
+
+5. **Extensibility**:
+    - If the system needs additional functionality, such as a "VacationMode" or "AlarmMode," the facade can be extended to support these modes without requiring the client to change. The facade can interact with any number of subsystems in the background while exposing a consistent and simplified interface.
+
+### Conclusion
+
+The **Facade Pattern** is a powerful way to simplify the interaction with complex systems. In this case, it unifies multiple home automation systems into a single, easy-to-use interface, making the user experience much smoother and more intuitive. By hiding the complexities of individual subsystems, it not only eases the client's life but also enhances the maintainability and flexibility of the entire system.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\README.md>
+<Folder Level=1 Name=ConcreteSystems Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems>
+<File Name=EnvironmentSystem.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\EnvironmentSystem.cs Size=286 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:17:21 2025 CreationTime=Mon Mar 24 00:11:27 2025>
+</File Name=EnvironmentSystem.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\EnvironmentSystem.cs Size=286 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:17:21 2025 CreationTime=Mon Mar 24 00:11:27 2025>
+<File Name=LightController.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\LightController.cs Size=338 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:09:45 2025 CreationTime=Mon Mar 24 00:08:52 2025>
+</File Name=LightController.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\LightController.cs Size=338 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:09:45 2025 CreationTime=Mon Mar 24 00:08:52 2025>
+<File Name=SecurityCamera.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\SecurityCamera.cs Size=318 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:10:53 2025 CreationTime=Mon Mar 24 00:10:19 2025>
+</File Name=SecurityCamera.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\SecurityCamera.cs Size=318 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:10:53 2025 CreationTime=Mon Mar 24 00:10:19 2025>
+<File Name=SmartLock.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\SmartLock.cs Size=257 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:11:48 2025 CreationTime=Mon Mar 24 00:11:05 2025>
+</File Name=SmartLock.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\SmartLock.cs Size=257 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:11:48 2025 CreationTime=Mon Mar 24 00:11:05 2025>
+<File Name=TemparatureController.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\TemparatureController.cs Size=227 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:09:06 2025 CreationTime=Mon Mar 24 00:05:33 2025>
+</File Name=TemparatureController.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems\TemparatureController.cs Size=227 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:09:06 2025 CreationTime=Mon Mar 24 00:05:33 2025>
+</Folder Level=1 Name=ConcreteSystems Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\ConcreteSystems>
+<Folder Level=1 Name=Facade Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\Facade>
+<File Name=HomeSystemFacade.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\Facade\HomeSystemFacade.cs Size=2680 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:17:21 2025 CreationTime=Mon Mar 24 00:13:30 2025>
+</File Name=HomeSystemFacade.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\Facade\HomeSystemFacade.cs Size=2680 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:17:21 2025 CreationTime=Mon Mar 24 00:13:30 2025>
+</Folder Level=1 Name=Facade Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\Facade>
+<File Name=FacadePattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\FacadePattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 24 00:13:30 2025 CreationTime=Mon Mar 24 00:00:05 2025>
+</File Name=FacadePattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\FacadePattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 24 00:13:30 2025 CreationTime=Mon Mar 24 00:00:05 2025>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\Program.cs Size=702 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:17:21 2025 CreationTime=Mon Mar 24 00:00:05 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\Program.cs Size=702 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:17:21 2025 CreationTime=Mon Mar 24 00:00:05 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\readme.md Size=4975 Bytes Extension=.md ModificationTime=Mon Mar 24 00:22:29 2025 CreationTime=Mon Mar 24 00:04:58 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern\readme.md Size=4975 Bytes Extension=.md ModificationTime=Mon Mar 24 00:22:29 2025 CreationTime=Mon Mar 24 00:04:58 2025>
+</Folder Level=0 Name=FacadePattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FacadePattern>
+<Folder Level=0 Name=FactoryMethodPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern>
+<README Content=﻿### 1. Problem Statement
+In a route-finding application, there are several modes of transport (driving, walking, air, train) for which different algorithms are needed to calculate the optimal routes. Hardcoding the route-finding logic for each transport mode within the main application would lead to a rigid design, making the code difficult to maintain and extend as new strategies (e.g., bicycle, bus) need to be added. Additionally, managing this logic would require changes across multiple parts of the application, which could introduce errors and complicate future updates.
+
+### 2. Solution
+The Factory Method Pattern is used to decouple the creation of different route-finding strategies from the main application. The `RouteFinder` class, which handles route-finding logic, delegates the responsibility of selecting the appropriate strategy (driving, walking, air, train) to a dedicated `RouteStrategyFactory` class. The factory method inside this class decides which concrete route-finding strategy (implementing the `IRouteStrategy` interface) to instantiate based on the user’s selected mode of transport.
+
+Each strategy (like `AirRouteStrategy`, `DrivingRouteStrategy`, `TrainRouteStrategy`, etc.) is encapsulated as a separate class that implements the `IRouteStrategy` interface. The `RouteFinder` class uses this strategy to call the appropriate `FindRoute` method.
+
+### 3. Why This Is the Solution and Better Design
+Using the Factory Method Pattern offers several benefits that enhance the design and scalability of the system:
+- **Separation of Concerns**: The `RouteFinder` focuses only on finding routes, while the `RouteStrategyFactory` is responsible for creating the appropriate strategy. This makes the code more organized and modular.
+- **Flexibility and Extensibility**: New route strategies can be added without changing existing code. If a new mode of transport (e.g., bicycle) needs to be supported, a new strategy class implementing `IRouteStrategy` can be added and the factory method will handle its instantiation. This reduces the risk of breaking existing functionality.
+- **Decoupling**: By using the factory to create strategy objects, the client code (like `RouteFinder`) does not need to know the details of how the strategies are implemented, promoting loose coupling. This makes future changes easier and less prone to errors.
+- **Maintainability**: The system becomes easier to maintain because each strategy is isolated in its own class. Developers can modify, test, and extend individual strategies without affecting the rest of the system.
+
+This approach follows key principles of object-oriented design such as **open/closed principle**, where the system is open for extension (new strategies) but closed for modification (existing code doesn't need changes). Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\README.md>
+</README Content=﻿### 1. Problem Statement
+In a route-finding application, there are several modes of transport (driving, walking, air, train) for which different algorithms are needed to calculate the optimal routes. Hardcoding the route-finding logic for each transport mode within the main application would lead to a rigid design, making the code difficult to maintain and extend as new strategies (e.g., bicycle, bus) need to be added. Additionally, managing this logic would require changes across multiple parts of the application, which could introduce errors and complicate future updates.
+
+### 2. Solution
+The Factory Method Pattern is used to decouple the creation of different route-finding strategies from the main application. The `RouteFinder` class, which handles route-finding logic, delegates the responsibility of selecting the appropriate strategy (driving, walking, air, train) to a dedicated `RouteStrategyFactory` class. The factory method inside this class decides which concrete route-finding strategy (implementing the `IRouteStrategy` interface) to instantiate based on the user’s selected mode of transport.
+
+Each strategy (like `AirRouteStrategy`, `DrivingRouteStrategy`, `TrainRouteStrategy`, etc.) is encapsulated as a separate class that implements the `IRouteStrategy` interface. The `RouteFinder` class uses this strategy to call the appropriate `FindRoute` method.
+
+### 3. Why This Is the Solution and Better Design
+Using the Factory Method Pattern offers several benefits that enhance the design and scalability of the system:
+- **Separation of Concerns**: The `RouteFinder` focuses only on finding routes, while the `RouteStrategyFactory` is responsible for creating the appropriate strategy. This makes the code more organized and modular.
+- **Flexibility and Extensibility**: New route strategies can be added without changing existing code. If a new mode of transport (e.g., bicycle) needs to be supported, a new strategy class implementing `IRouteStrategy` can be added and the factory method will handle its instantiation. This reduces the risk of breaking existing functionality.
+- **Decoupling**: By using the factory to create strategy objects, the client code (like `RouteFinder`) does not need to know the details of how the strategies are implemented, promoting loose coupling. This makes future changes easier and less prone to errors.
+- **Maintainability**: The system becomes easier to maintain because each strategy is isolated in its own class. Developers can modify, test, and extend individual strategies without affecting the rest of the system.
+
+This approach follows key principles of object-oriented design such as **open/closed principle**, where the system is open for extension (new strategies) but closed for modification (existing code doesn't need changes). Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\README.md>
+<Folder Level=1 Name=Context Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Context>
+<File Name=RouteFinder.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Context\RouteFinder.cs Size=487 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:27:58 2025>
+</File Name=RouteFinder.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Context\RouteFinder.cs Size=487 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:27:58 2025>
+</Folder Level=1 Name=Context Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Context>
+<Folder Level=1 Name=Factory Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Factory>
+<File Name=RouteStrategyFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Factory\RouteStrategyFactory.cs Size=718 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:28:50 2025>
+</File Name=RouteStrategyFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Factory\RouteStrategyFactory.cs Size=718 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:28:50 2025>
+</Folder Level=1 Name=Factory Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Factory>
+<File Name=FactoryMethodPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\FactoryMethodPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 02:28:51 2025 CreationTime=Sun Mar 23 02:17:09 2025>
+</File Name=FactoryMethodPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\FactoryMethodPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 02:28:51 2025 CreationTime=Sun Mar 23 02:17:09 2025>
+<Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Interface>
+<File Name=IRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Interface\IRouteStrategy.cs Size=108 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:20:47 2025 CreationTime=Sun Mar 23 02:19:25 2025>
+</File Name=IRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Interface\IRouteStrategy.cs Size=108 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:20:47 2025 CreationTime=Sun Mar 23 02:19:25 2025>
+</Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Interface>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Program.cs Size=688 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:17:09 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\Program.cs Size=688 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:17:09 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\readme.md Size=2824 Bytes Extension=.md ModificationTime=Sun Mar 23 02:35:09 2025 CreationTime=Sun Mar 23 02:31:51 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\readme.md Size=2824 Bytes Extension=.md ModificationTime=Sun Mar 23 02:35:09 2025 CreationTime=Sun Mar 23 02:31:51 2025>
+<Folder Level=1 Name=RouteStrategies Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies>
+<File Name=AirRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies\AirRouteStrategy.cs Size=253 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:26:43 2025>
+</File Name=AirRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies\AirRouteStrategy.cs Size=253 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:26:43 2025>
+<File Name=DrivingRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies\DrivingRouteStrategy.cs Size=254 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:20:47 2025 CreationTime=Sun Mar 23 02:20:23 2025>
+</File Name=DrivingRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies\DrivingRouteStrategy.cs Size=254 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:20:47 2025 CreationTime=Sun Mar 23 02:20:23 2025>
+<File Name=TrainRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies\TrainRouteStrategy.cs Size=257 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:27:07 2025>
+</File Name=TrainRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies\TrainRouteStrategy.cs Size=257 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:27:07 2025>
+<File Name=WalkingRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies\WalkingRouteStrategy.cs Size=254 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:27:32 2025>
+</File Name=WalkingRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies\WalkingRouteStrategy.cs Size=254 Bytes Extension=.cs ModificationTime=Sun Mar 23 02:32:18 2025 CreationTime=Sun Mar 23 02:27:32 2025>
+</Folder Level=1 Name=RouteStrategies Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern\RouteStrategies>
+</Folder Level=0 Name=FactoryMethodPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\FactoryMethodPattern>
+<Folder Level=0 Name=MediatorPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern>
+<README Content=﻿# Mediator Pattern
+
+## 1. Problem Statement
+
+In an organization, different teams (e.g., Marketing, Sales, IT, Development, Support) often need to communicate and collaborate with each other to accomplish common goals. However, if each team directly communicates with every other team, it can lead to a tangled web of interactions and dependencies, making the communication process complex and inefficient.
+
+For example, the marketing team may need to communicate with the development team for a new feature, while the sales team needs to interact with the support team for customer issues. As the organization grows, the number of interactions between teams increases, leading to confusion, duplication of messages, and possible communication breakdowns.
+
+This creates the problem of managing multiple inter-team communications effectively and ensuring that messages are directed appropriately without overloading any team.
+
+## 2. Solution Approach
+
+The **Mediator Pattern** provides a solution by centralizing communication between objects (in this case, teams) through a mediator. Instead of teams communicating directly with each other, they send messages to a mediator that handles the message routing. The mediator is responsible for ensuring that each team gets the necessary messages and facilitates communication between them.
+
+In this scenario, the **TeamMediator** acts as the central mediator that registers all the teams and handles message routing. Teams such as Marketing, Sales, Development, Support, and IT communicate with each other through the mediator, ensuring that messages are directed to the appropriate teams. This reduces the direct dependencies between teams and simplifies the communication process.
+
+## 3. Why Mediator is the Best Approach
+
+The **Mediator Pattern** is ideal for this situation for the following reasons:
+
+1. **Centralized Control**:
+    - The mediator centralizes communication, making it easier to manage interactions between teams. Instead of handling direct communication between multiple teams, all interactions go through the mediator, which improves the organization of communication.
+
+2. **Reduced Complexity**:
+    - Without the mediator, teams would need to be aware of the other teams they need to communicate with, creating a complex network of dependencies. By using the mediator, teams only need to know how to communicate with the mediator, not with each other, reducing the complexity of communication.
+
+3. **Decoupling Teams**:
+    - The Mediator Pattern decouples the teams from each other. Teams no longer need to be aware of the internal workings or the existence of other teams. They only interact with the mediator, which makes the system more flexible and easier to maintain.
+
+4. **Easier Maintenance and Extensibility**:
+    - As new teams are added to the system, the mediator can easily register them and handle their communication. There’s no need to change the communication logic between the existing teams. This makes it easier to extend the system without affecting the existing team interactions.
+
+## 4. How Mediator Eases Life Here
+
+1. **Simplifies Communication**:
+    - The mediator simplifies communication between teams. Teams no longer need to communicate directly with every other team. Instead, they simply send messages through the mediator, which handles the routing of messages to the correct recipients. This reduces the complexity of direct team-to-team communication.
+
+2. **Reduces Dependencies**:
+    - By using the mediator, teams do not have direct dependencies on each other. This means that the system can be more flexible, and teams can be added or removed without affecting others. Changes to one team's internal communication don’t affect others as long as the mediator’s interface remains consistent.
+
+3. **Improves Collaboration**:
+    - With the mediator in place, each team can focus on its own tasks and only communicate when necessary. The mediator ensures that the appropriate teams are notified when needed, facilitating smooth collaboration and reducing unnecessary interactions.
+
+4. **Facilitates Efficient Message Handling**:
+    - The mediator makes sure that messages are only sent to relevant teams, avoiding message overload. When a team sends a message, the mediator routes it to all other teams except the sender. This makes the communication flow more efficient and prevents unnecessary notifications to the sender.
+
+5. **Organizes Complex Interactions**:
+    - In larger organizations with many teams, interactions can become complicated. The mediator organizes these interactions, ensuring that messages are routed in an orderly manner, and preventing any team from becoming overwhelmed by redundant or irrelevant messages.
+
+### Conclusion
+
+The **Mediator Pattern** simplifies and organizes communication in complex systems, such as an organization with multiple teams. By using a mediator to centralize interactions, teams are decoupled from each other, reducing dependencies and complexity. This results in a more maintainable, extensible, and efficient communication structure that eases the management of inter-team relationships.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\README.md>
+</README Content=﻿# Mediator Pattern
+
+## 1. Problem Statement
+
+In an organization, different teams (e.g., Marketing, Sales, IT, Development, Support) often need to communicate and collaborate with each other to accomplish common goals. However, if each team directly communicates with every other team, it can lead to a tangled web of interactions and dependencies, making the communication process complex and inefficient.
+
+For example, the marketing team may need to communicate with the development team for a new feature, while the sales team needs to interact with the support team for customer issues. As the organization grows, the number of interactions between teams increases, leading to confusion, duplication of messages, and possible communication breakdowns.
+
+This creates the problem of managing multiple inter-team communications effectively and ensuring that messages are directed appropriately without overloading any team.
+
+## 2. Solution Approach
+
+The **Mediator Pattern** provides a solution by centralizing communication between objects (in this case, teams) through a mediator. Instead of teams communicating directly with each other, they send messages to a mediator that handles the message routing. The mediator is responsible for ensuring that each team gets the necessary messages and facilitates communication between them.
+
+In this scenario, the **TeamMediator** acts as the central mediator that registers all the teams and handles message routing. Teams such as Marketing, Sales, Development, Support, and IT communicate with each other through the mediator, ensuring that messages are directed to the appropriate teams. This reduces the direct dependencies between teams and simplifies the communication process.
+
+## 3. Why Mediator is the Best Approach
+
+The **Mediator Pattern** is ideal for this situation for the following reasons:
+
+1. **Centralized Control**:
+    - The mediator centralizes communication, making it easier to manage interactions between teams. Instead of handling direct communication between multiple teams, all interactions go through the mediator, which improves the organization of communication.
+
+2. **Reduced Complexity**:
+    - Without the mediator, teams would need to be aware of the other teams they need to communicate with, creating a complex network of dependencies. By using the mediator, teams only need to know how to communicate with the mediator, not with each other, reducing the complexity of communication.
+
+3. **Decoupling Teams**:
+    - The Mediator Pattern decouples the teams from each other. Teams no longer need to be aware of the internal workings or the existence of other teams. They only interact with the mediator, which makes the system more flexible and easier to maintain.
+
+4. **Easier Maintenance and Extensibility**:
+    - As new teams are added to the system, the mediator can easily register them and handle their communication. There’s no need to change the communication logic between the existing teams. This makes it easier to extend the system without affecting the existing team interactions.
+
+## 4. How Mediator Eases Life Here
+
+1. **Simplifies Communication**:
+    - The mediator simplifies communication between teams. Teams no longer need to communicate directly with every other team. Instead, they simply send messages through the mediator, which handles the routing of messages to the correct recipients. This reduces the complexity of direct team-to-team communication.
+
+2. **Reduces Dependencies**:
+    - By using the mediator, teams do not have direct dependencies on each other. This means that the system can be more flexible, and teams can be added or removed without affecting others. Changes to one team's internal communication don’t affect others as long as the mediator’s interface remains consistent.
+
+3. **Improves Collaboration**:
+    - With the mediator in place, each team can focus on its own tasks and only communicate when necessary. The mediator ensures that the appropriate teams are notified when needed, facilitating smooth collaboration and reducing unnecessary interactions.
+
+4. **Facilitates Efficient Message Handling**:
+    - The mediator makes sure that messages are only sent to relevant teams, avoiding message overload. When a team sends a message, the mediator routes it to all other teams except the sender. This makes the communication flow more efficient and prevents unnecessary notifications to the sender.
+
+5. **Organizes Complex Interactions**:
+    - In larger organizations with many teams, interactions can become complicated. The mediator organizes these interactions, ensuring that messages are routed in an orderly manner, and preventing any team from becoming overwhelmed by redundant or irrelevant messages.
+
+### Conclusion
+
+The **Mediator Pattern** simplifies and organizes communication in complex systems, such as an organization with multiple teams. By using a mediator to centralize interactions, teams are decoupled from each other, reducing dependencies and complexity. This results in a more maintainable, extensible, and efficient communication structure that eases the management of inter-team relationships.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\README.md>
+<Folder Level=1 Name=ConcreteMediator Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteMediator>
+<File Name=TeamMediator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteMediator\TeamMediator.cs Size=584 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:30:34 2025 CreationTime=Mon Mar 24 00:29:19 2025>
+</File Name=TeamMediator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteMediator\TeamMediator.cs Size=584 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:30:34 2025 CreationTime=Mon Mar 24 00:29:19 2025>
+</Folder Level=1 Name=ConcreteMediator Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteMediator>
+<Folder Level=1 Name=ConcreteTeam Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam>
+<File Name=DevelopmentTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\DevelopmentTeam.cs Size=614 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:34:07 2025 CreationTime=Mon Mar 24 00:33:18 2025>
+</File Name=DevelopmentTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\DevelopmentTeam.cs Size=614 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:34:07 2025 CreationTime=Mon Mar 24 00:33:18 2025>
+<File Name=InformationTechnologyTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\InformationTechnologyTeam.cs Size=651 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:32:42 2025 CreationTime=Mon Mar 24 00:32:23 2025>
+</File Name=InformationTechnologyTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\InformationTechnologyTeam.cs Size=651 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:32:42 2025 CreationTime=Mon Mar 24 00:32:23 2025>
+<File Name=MarketingTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\MarketingTeam.cs Size=614 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:31:36 2025 CreationTime=Mon Mar 24 00:30:49 2025>
+</File Name=MarketingTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\MarketingTeam.cs Size=614 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:31:36 2025 CreationTime=Mon Mar 24 00:30:49 2025>
+<File Name=SalesTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\SalesTeam.cs Size=602 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:32:42 2025 CreationTime=Mon Mar 24 00:31:55 2025>
+</File Name=SalesTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\SalesTeam.cs Size=602 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:32:42 2025 CreationTime=Mon Mar 24 00:31:55 2025>
+<File Name=SupportTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\SupportTeam.cs Size=608 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:34:07 2025 CreationTime=Mon Mar 24 00:33:01 2025>
+</File Name=SupportTeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam\SupportTeam.cs Size=608 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:34:07 2025 CreationTime=Mon Mar 24 00:33:01 2025>
+</Folder Level=1 Name=ConcreteTeam Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\ConcreteTeam>
+<Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\Interface>
+<File Name=IMediator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\Interface\IMediator.cs Size=164 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:28:46 2025 CreationTime=Mon Mar 24 00:27:54 2025>
+</File Name=IMediator.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\Interface\IMediator.cs Size=164 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:28:46 2025 CreationTime=Mon Mar 24 00:27:54 2025>
+<File Name=ITeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\Interface\ITeam.cs Size=195 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:28:14 2025 CreationTime=Mon Mar 24 00:27:46 2025>
+</File Name=ITeam.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\Interface\ITeam.cs Size=195 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:28:14 2025 CreationTime=Mon Mar 24 00:27:46 2025>
+</Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\Interface>
+<File Name=MediatorPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\MediatorPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 24 00:30:49 2025 CreationTime=Mon Mar 24 00:26:47 2025>
+</File Name=MediatorPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\MediatorPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 24 00:30:49 2025 CreationTime=Mon Mar 24 00:26:47 2025>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\Program.cs Size=1594 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:36:04 2025 CreationTime=Mon Mar 24 00:26:47 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\Program.cs Size=1594 Bytes Extension=.cs ModificationTime=Mon Mar 24 00:36:04 2025 CreationTime=Mon Mar 24 00:26:47 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\readme.md Size=5215 Bytes Extension=.md ModificationTime=Mon Mar 24 00:40:01 2025 CreationTime=Mon Mar 24 00:39:52 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern\readme.md Size=5215 Bytes Extension=.md ModificationTime=Mon Mar 24 00:40:01 2025 CreationTime=Mon Mar 24 00:39:52 2025>
+</Folder Level=0 Name=MediatorPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MediatorPattern>
+<Folder Level=0 Name=MementoPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern>
+<README Content=﻿# Memento Pattern
+
+## 1. Problem Statement
+
+In a document editor application, users frequently make changes to the document, such as inserting, deleting, or selecting text. Sometimes, users may want to undo their actions, such as reversing an insertion or restoring a previously selected portion of text. Managing these actions and tracking the document's state becomes complicated when dealing with complex interactions in the editor.
+
+Additionally, as the user makes changes, it’s necessary to maintain a history of the document’s state, allowing for efficient undo/redo functionality. However, storing and managing the full history of the document with all its changes (text, cursor position, and selection) in a way that is easy to restore can quickly become cumbersome.
+
+The challenge is to provide a simple way to track the editor's state over time, store it efficiently, and restore previous states on request.
+
+## 2. Solution Approach
+
+The **Memento Pattern** provides a solution to this problem by allowing the system to capture and store the internal state of an object (in this case, the document editor) without exposing its details. The **Editor** object (the originator) creates a snapshot of its current state (text, cursor position, and selection) and stores it in a **Memento** object.
+
+This pattern separates the responsibilities of the document editor and its history management:
+- The **Editor** creates and restores its state using the Memento.
+- The **History** class acts as the caretaker, storing and managing the mementos (snapshots) of the document’s state.
+
+The Memento Pattern enables efficient undo/redo functionality by allowing the document's state to be saved and restored at various points in time, without exposing the internal structure of the editor. This ensures that the editor can revert to any previously saved state when needed.
+
+## 3. Why Memento is the Best Approach
+
+The **Memento Pattern** is the best approach for this scenario for several reasons:
+
+1. **Encapsulation**:
+    - The Memento Pattern encapsulates the state of an object, meaning that the **Editor** does not need to expose its internal state (e.g., text, cursor position, selection) to the outside world. Only the **Memento** knows how to store the state, ensuring that the **Editor** maintains control over its data.
+
+2. **Undo/Redo Support**:
+    - The Memento Pattern is ideal for implementing undo and redo functionality. Each change to the document can be captured as a **Memento** object, allowing the system to store and restore the document's state efficiently. When a user requests an undo, the editor simply restores the last memento, which takes it back to the previous state.
+
+3. **Separation of Concerns**:
+    - By using the Memento Pattern, the **Editor** focuses solely on modifying the document, while the **History** class manages the snapshots. This separation of concerns keeps the code clean, modular, and easier to maintain. The editor doesn’t need to worry about managing its history, which is handled by the caretaker class.
+
+4. **Efficiency**:
+    - The Memento Pattern allows the document's state to be stored efficiently as small snapshots, making it easy to restore the document to any previous state without having to recompute or reapply all changes.
+
+## 4. How Memento Eases Life Here
+
+1. **Efficient Undo/Redo Operations**:
+    - The Memento Pattern makes it easy to implement undo and redo functionality. Each action taken by the user (e.g., inserting text, deleting text, moving the cursor) is captured as a memento. The **History** class manages these mementos and allows the editor to revert to any previous state, giving the user a smooth experience when navigating through changes.
+
+2. **Modular and Clean Design**:
+    - The pattern promotes a clean design by separating the responsibilities of modifying the document and managing its history. The **Editor** is responsible for managing the document’s content, while the **History** is solely responsible for saving and restoring document states. This modular design makes it easier to maintain and extend the system.
+
+3. **Easy State Management**:
+    - With the Memento Pattern, managing and restoring the state of the document is simplified. The document's state is stored as a single object (the **Memento**) that can be passed around and restored whenever necessary. This allows for efficient tracking of the document’s state over time.
+
+4. **Persistent History**:
+    - The pattern enables the persistence of the document's history. In addition to storing mementos in memory for immediate undo/redo functionality, the system can serialize these mementos into files (such as JSON) for later use. This allows the user to save and restore their document state even after the application is closed and reopened.
+
+5. **Improved User Experience**:
+    - With efficient undo and redo operations, users can easily navigate through their document editing history. They can experiment with changes, and if something goes wrong, they can quickly revert to the last known good state. This improves the overall user experience, as users feel more in control of their document.
+
+### Conclusion
+
+The **Memento Pattern** provides a simple and effective way to manage undo and redo functionality in a document editor. By separating the responsibilities of editing and history management, it ensures that the system is clean, modular, and easy to maintain. The pattern also improves the user experience by enabling efficient state tracking and restoration, allowing users to easily navigate their document changes.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\README.md>
+</README Content=﻿# Memento Pattern
+
+## 1. Problem Statement
+
+In a document editor application, users frequently make changes to the document, such as inserting, deleting, or selecting text. Sometimes, users may want to undo their actions, such as reversing an insertion or restoring a previously selected portion of text. Managing these actions and tracking the document's state becomes complicated when dealing with complex interactions in the editor.
+
+Additionally, as the user makes changes, it’s necessary to maintain a history of the document’s state, allowing for efficient undo/redo functionality. However, storing and managing the full history of the document with all its changes (text, cursor position, and selection) in a way that is easy to restore can quickly become cumbersome.
+
+The challenge is to provide a simple way to track the editor's state over time, store it efficiently, and restore previous states on request.
+
+## 2. Solution Approach
+
+The **Memento Pattern** provides a solution to this problem by allowing the system to capture and store the internal state of an object (in this case, the document editor) without exposing its details. The **Editor** object (the originator) creates a snapshot of its current state (text, cursor position, and selection) and stores it in a **Memento** object.
+
+This pattern separates the responsibilities of the document editor and its history management:
+- The **Editor** creates and restores its state using the Memento.
+- The **History** class acts as the caretaker, storing and managing the mementos (snapshots) of the document’s state.
+
+The Memento Pattern enables efficient undo/redo functionality by allowing the document's state to be saved and restored at various points in time, without exposing the internal structure of the editor. This ensures that the editor can revert to any previously saved state when needed.
+
+## 3. Why Memento is the Best Approach
+
+The **Memento Pattern** is the best approach for this scenario for several reasons:
+
+1. **Encapsulation**:
+    - The Memento Pattern encapsulates the state of an object, meaning that the **Editor** does not need to expose its internal state (e.g., text, cursor position, selection) to the outside world. Only the **Memento** knows how to store the state, ensuring that the **Editor** maintains control over its data.
+
+2. **Undo/Redo Support**:
+    - The Memento Pattern is ideal for implementing undo and redo functionality. Each change to the document can be captured as a **Memento** object, allowing the system to store and restore the document's state efficiently. When a user requests an undo, the editor simply restores the last memento, which takes it back to the previous state.
+
+3. **Separation of Concerns**:
+    - By using the Memento Pattern, the **Editor** focuses solely on modifying the document, while the **History** class manages the snapshots. This separation of concerns keeps the code clean, modular, and easier to maintain. The editor doesn’t need to worry about managing its history, which is handled by the caretaker class.
+
+4. **Efficiency**:
+    - The Memento Pattern allows the document's state to be stored efficiently as small snapshots, making it easy to restore the document to any previous state without having to recompute or reapply all changes.
+
+## 4. How Memento Eases Life Here
+
+1. **Efficient Undo/Redo Operations**:
+    - The Memento Pattern makes it easy to implement undo and redo functionality. Each action taken by the user (e.g., inserting text, deleting text, moving the cursor) is captured as a memento. The **History** class manages these mementos and allows the editor to revert to any previous state, giving the user a smooth experience when navigating through changes.
+
+2. **Modular and Clean Design**:
+    - The pattern promotes a clean design by separating the responsibilities of modifying the document and managing its history. The **Editor** is responsible for managing the document’s content, while the **History** is solely responsible for saving and restoring document states. This modular design makes it easier to maintain and extend the system.
+
+3. **Easy State Management**:
+    - With the Memento Pattern, managing and restoring the state of the document is simplified. The document's state is stored as a single object (the **Memento**) that can be passed around and restored whenever necessary. This allows for efficient tracking of the document’s state over time.
+
+4. **Persistent History**:
+    - The pattern enables the persistence of the document's history. In addition to storing mementos in memory for immediate undo/redo functionality, the system can serialize these mementos into files (such as JSON) for later use. This allows the user to save and restore their document state even after the application is closed and reopened.
+
+5. **Improved User Experience**:
+    - With efficient undo and redo operations, users can easily navigate through their document editing history. They can experiment with changes, and if something goes wrong, they can quickly revert to the last known good state. This improves the overall user experience, as users feel more in control of their document.
+
+### Conclusion
+
+The **Memento Pattern** provides a simple and effective way to manage undo and redo functionality in a document editor. By separating the responsibilities of editing and history management, it ensures that the system is clean, modular, and easy to maintain. The pattern also improves the user experience by enabling efficient state tracking and restoration, allowing users to easily navigate their document changes.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\README.md>
+<File Name=Editor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\Editor.cs Size=1860 Bytes Extension=.cs ModificationTime=Fri Mar 14 11:47:12 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+</File Name=Editor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\Editor.cs Size=1860 Bytes Extension=.cs ModificationTime=Fri Mar 14 11:47:12 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+<File Name=EditorMemento.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\EditorMemento.cs Size=904 Bytes Extension=.cs ModificationTime=Fri Mar 14 12:36:16 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+</File Name=EditorMemento.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\EditorMemento.cs Size=904 Bytes Extension=.cs ModificationTime=Fri Mar 14 12:36:16 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+<File Name=History.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\History.cs Size=1193 Bytes Extension=.cs ModificationTime=Fri Mar 14 12:25:26 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+</File Name=History.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\History.cs Size=1193 Bytes Extension=.cs ModificationTime=Fri Mar 14 12:25:26 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+<File Name=MementoPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\MementoPattern.csproj Size=437 Bytes Extension=.csproj ModificationTime=Mon Mar 24 03:01:49 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+</File Name=MementoPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\MementoPattern.csproj Size=437 Bytes Extension=.csproj ModificationTime=Mon Mar 24 03:01:49 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\Program.cs Size=105 Bytes Extension=.cs ModificationTime=Fri Mar 14 10:53:45 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\Program.cs Size=105 Bytes Extension=.cs ModificationTime=Fri Mar 14 10:53:45 2025 CreationTime=Mon Mar 24 02:58:03 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\readme.md Size=5673 Bytes Extension=.md ModificationTime=Mon Mar 24 03:05:36 2025 CreationTime=Mon Mar 24 03:03:30 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern\readme.md Size=5673 Bytes Extension=.md ModificationTime=Mon Mar 24 03:05:36 2025 CreationTime=Mon Mar 24 03:03:30 2025>
+</Folder Level=0 Name=MementoPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\MementoPattern>
+<Folder Level=0 Name=ObserverPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern>
+<README Content=# Smart Home System Project
+
+## Overview
+
+This project involves developing a modular system for home automation that reacts to changes in the environment. Your task is to implement several components that work together without direct dependencies on each other, ensuring maintainability and flexibility.
+
+## Project Structure
+
+Each feature is represented as a GitHub issue to be completed:
+
+### Issue #1: Core System Framework
+
+Implement the foundational architecture that enables components to communicate with each other indirectly. This should include:
+
+- A mechanism for components to register interest in environmental state changes
+- A central state management system that notifies interested components
+- A data structure to hold environmental measurements and states
+
+### Issue #2: Motion Detection
+
+Create a component that:
+- Monitors and responds to motion data
+- Tracks location and time of detected movements
+- Logs activity and analyzes patterns to identify normal vs. suspicious behavior
+
+### Issue #3: Light Management
+
+Create a component that:
+- Responds to ambient light levels
+- Adjusts lighting based on room occupancy
+- Supports different "scenes" for various activities (reading, movie watching, etc.)
+
+### Issue #4: Temperature Control
+
+Create a component that:
+- Monitors current temperature
+- Activates heating or cooling based on target temperatures
+- Implements hysteresis to prevent rapid cycling of HVAC systems
+
+### Issue #5: Energy Consumption Tracking
+
+Create a component that:
+- Monitors real-time power usage
+- Calculates usage statistics over time
+- Identifies unusual consumption patterns
+
+### Issue #6: Voice Command System
+
+Create a component that:
+- Processes natural language commands
+- Translates commands into system state changes
+- Maintains a history of processed commands
+
+### Issue #7: Remote Access App
+
+Create a component that:
+- Displays the current state of the home environment
+- Generates notifications for important events
+- Allows remote control of home systems
+
+## Assignment Requirements
+
+For this assignment, you need to implement **only the unit tests** for each feature. You should create comprehensive test cases that verify:
+
+1. Components respond correctly to environment changes
+2. Components maintain proper internal state
+3. Business logic works as expected
+
+Your tests should use mocking where appropriate to isolate the components being tested.
+
+## Development Guidelines
+
+- Each feature should be developed and tested independently
+- Components should not directly reference each other's implementation details
+- Focus on testing the API contracts between components
+
+## Submission
+
+Submit your solution as a Git repository containing:
+- Class definitions showing the API contracts between components
+- Complete unit tests for each feature
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\README.md>
+</README Content=# Smart Home System Project
+
+## Overview
+
+This project involves developing a modular system for home automation that reacts to changes in the environment. Your task is to implement several components that work together without direct dependencies on each other, ensuring maintainability and flexibility.
+
+## Project Structure
+
+Each feature is represented as a GitHub issue to be completed:
+
+### Issue #1: Core System Framework
+
+Implement the foundational architecture that enables components to communicate with each other indirectly. This should include:
+
+- A mechanism for components to register interest in environmental state changes
+- A central state management system that notifies interested components
+- A data structure to hold environmental measurements and states
+
+### Issue #2: Motion Detection
+
+Create a component that:
+- Monitors and responds to motion data
+- Tracks location and time of detected movements
+- Logs activity and analyzes patterns to identify normal vs. suspicious behavior
+
+### Issue #3: Light Management
+
+Create a component that:
+- Responds to ambient light levels
+- Adjusts lighting based on room occupancy
+- Supports different "scenes" for various activities (reading, movie watching, etc.)
+
+### Issue #4: Temperature Control
+
+Create a component that:
+- Monitors current temperature
+- Activates heating or cooling based on target temperatures
+- Implements hysteresis to prevent rapid cycling of HVAC systems
+
+### Issue #5: Energy Consumption Tracking
+
+Create a component that:
+- Monitors real-time power usage
+- Calculates usage statistics over time
+- Identifies unusual consumption patterns
+
+### Issue #6: Voice Command System
+
+Create a component that:
+- Processes natural language commands
+- Translates commands into system state changes
+- Maintains a history of processed commands
+
+### Issue #7: Remote Access App
+
+Create a component that:
+- Displays the current state of the home environment
+- Generates notifications for important events
+- Allows remote control of home systems
+
+## Assignment Requirements
+
+For this assignment, you need to implement **only the unit tests** for each feature. You should create comprehensive test cases that verify:
+
+1. Components respond correctly to environment changes
+2. Components maintain proper internal state
+3. Business logic works as expected
+
+Your tests should use mocking where appropriate to isolate the components being tested.
+
+## Development Guidelines
+
+- Each feature should be developed and tested independently
+- Components should not directly reference each other's implementation details
+- Focus on testing the API contracts between components
+
+## Submission
+
+Submit your solution as a Git repository containing:
+- Class definitions showing the API contracts between components
+- Complete unit tests for each feature
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\README.md>
+<Folder Level=1 Name=Components Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components>
+<File Name=EnergyConsumptionManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\EnergyConsumptionManager.cs Size=1392 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=EnergyConsumptionManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\EnergyConsumptionManager.cs Size=1392 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=LightManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\LightManager.cs Size=1083 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=LightManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\LightManager.cs Size=1083 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=MotionDetector.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\MotionDetector.cs Size=2078 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=MotionDetector.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\MotionDetector.cs Size=2078 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=RemoteAccessManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\RemoteAccessManager.cs Size=1718 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=RemoteAccessManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\RemoteAccessManager.cs Size=1718 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=TemperatureManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\TemperatureManager.cs Size=895 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=TemperatureManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\TemperatureManager.cs Size=895 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=VoiceCommandManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\VoiceCommandManager.cs Size=808 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=VoiceCommandManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components\VoiceCommandManager.cs Size=808 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</Folder Level=1 Name=Components Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Components>
+<Folder Level=1 Name=Core Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Core>
+<File Name=EnvironmentState.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Core\EnvironmentState.cs Size=2667 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=EnvironmentState.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Core\EnvironmentState.cs Size=2667 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</Folder Level=1 Name=Core Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Core>
+<Folder Level=1 Name=Enum Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum>
+<File Name=CONSUMPTIONPATTERN.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\CONSUMPTIONPATTERN.cs Size=94 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=CONSUMPTIONPATTERN.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\CONSUMPTIONPATTERN.cs Size=94 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=LIGHTMODE.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\LIGHTMODE.cs Size=109 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=LIGHTMODE.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\LIGHTMODE.cs Size=109 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=MOTIONBEHAVIOR.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\MOTIONBEHAVIOR.cs Size=110 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=MOTIONBEHAVIOR.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\MOTIONBEHAVIOR.cs Size=110 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=SENSOR.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\SENSOR.cs Size=109 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=SENSOR.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\SENSOR.cs Size=109 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=TEMPSTATE.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\TEMPSTATE.cs Size=93 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=TEMPSTATE.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum\TEMPSTATE.cs Size=93 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</Folder Level=1 Name=Enum Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Enum>
+<Folder Level=1 Name=Executor Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor>
+<File Name=AmbientLightLevelStateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\AmbientLightLevelStateChangeExecutor.cs Size=477 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=AmbientLightLevelStateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\AmbientLightLevelStateChangeExecutor.cs Size=477 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=EnergyConsumptionStateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\EnergyConsumptionStateChangeExecutor.cs Size=477 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=EnergyConsumptionStateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\EnergyConsumptionStateChangeExecutor.cs Size=477 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=MotionLevelStateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\MotionLevelStateChangeExecutor.cs Size=461 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=MotionLevelStateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\MotionLevelStateChangeExecutor.cs Size=461 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=StateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\StateChangeExecutor.cs Size=561 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=StateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\StateChangeExecutor.cs Size=561 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=TemperatureStateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\TemperatureStateChangeExecutor.cs Size=459 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=TemperatureStateChangeExecutor.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor\TemperatureStateChangeExecutor.cs Size=459 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</Folder Level=1 Name=Executor Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Executor>
+<Folder Level=1 Name=Factory Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory>
+<File Name=CommandFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory\CommandFactory.cs Size=80 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=CommandFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory\CommandFactory.cs Size=80 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=ExecutorFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory\ExecutorFactory.cs Size=1466 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=ExecutorFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory\ExecutorFactory.cs Size=1466 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=LightModeFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory\LightModeFactory.cs Size=1081 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=LightModeFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory\LightModeFactory.cs Size=1081 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=TemperatureFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory\TemperatureFactory.cs Size=775 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=TemperatureFactory.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory\TemperatureFactory.cs Size=775 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</Folder Level=1 Name=Factory Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Factory>
+<Folder Level=1 Name=Interfaces Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Interfaces>
+<File Name=ISmartHomeComponent.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Interfaces\ISmartHomeComponent.cs Size=198 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=ISmartHomeComponent.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Interfaces\ISmartHomeComponent.cs Size=198 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</Folder Level=1 Name=Interfaces Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Interfaces>
+<Folder Level=1 Name=Models Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Models>
+<File Name=Command.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Models\Command.cs Size=605 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=Command.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Models\Command.cs Size=605 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=MotionData.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Models\MotionData.cs Size=634 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=MotionData.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Models\MotionData.cs Size=634 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=PowerConsumptionData.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Models\PowerConsumptionData.cs Size=460 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=PowerConsumptionData.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Models\PowerConsumptionData.cs Size=460 Bytes Extension=.cs ModificationTime=Mon Mar 24 03:01:31 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</Folder Level=1 Name=Models Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Models>
+<File Name=ObserverPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\ObserverPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 10 15:20:24 2025 CreationTime=Mon Mar 24 02:38:42 2025>
+</File Name=ObserverPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\ObserverPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 10 15:20:24 2025 CreationTime=Mon Mar 24 02:38:42 2025>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Program.cs Size=105 Bytes Extension=.cs ModificationTime=Fri Mar  7 12:05:07 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\Program.cs Size=105 Bytes Extension=.cs ModificationTime=Fri Mar  7 12:05:07 2025 CreationTime=Mon Mar 24 02:38:43 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\readme.md Size=2888 Bytes Extension=.md ModificationTime=Mon Mar 24 02:43:34 2025 CreationTime=Mon Mar 24 02:43:18 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern\readme.md Size=2888 Bytes Extension=.md ModificationTime=Mon Mar 24 02:43:34 2025 CreationTime=Mon Mar 24 02:43:18 2025>
+</Folder Level=0 Name=ObserverPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ObserverPattern>
+<Folder Level=0 Name=ProxyPatterm Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm>
+<README Content=﻿# Proxy Pattern
+
+## 1. Problem Statement
+
+In modern video streaming services, there are multiple factors to consider before streaming content to users, such as authentication, subscription type (premium or standard), access control, caching, and server management. Without an efficient system, each of these steps could result in performance bottlenecks or a poor user experience. For example, every time a video is requested, the system might need to authenticate the user, check their subscription, fetch the video from a server, and cache it for future use.
+
+Handling all of these tasks each time a user requests a video can be inefficient, especially if some tasks (like checking access or fetching a video) are repetitive. Additionally, streaming directly from the server every time could lead to delays and unnecessary resource consumption.
+
+## 2. Solution Approach
+
+The **Proxy Pattern** is used to solve this problem by providing a surrogate or placeholder for the real video streaming service. The proxy handles the common tasks such as authentication, access control, caching, and server management, allowing the real video streaming service to focus only on streaming the video.
+
+In this case, the **VideoStreamProxy** acts as a mediator between the user and the real video streaming service. It checks if the user is authenticated, verifies if they have access to the requested content based on their subscription, retrieves the video from cache if available, and if not, fetches it from an optimal server. This reduces the workload of the real streaming service and optimizes the user experience by caching videos for future use and avoiding redundant operations.
+
+## 3. Why Proxy is the Best Approach
+
+The **Proxy Pattern** is ideal for this situation for the following reasons:
+
+1. **Performance Optimization**:
+    - The proxy minimizes the load on the real video streaming service by handling common tasks like authentication, access control, and caching before delegating the video streaming to the real service. This reduces unnecessary interactions with the server and improves the overall performance of the system.
+
+2. **Access Control**:
+    - The proxy ensures that only authenticated users with the appropriate subscription type can access the video content. It serves as a gatekeeper, providing an additional layer of security and access control without requiring changes to the core video streaming logic.
+
+3. **Caching**:
+    - The proxy handles caching of videos for future requests, ensuring that the system doesn't need to stream the same video repeatedly. This reduces server load and improves response times for repeated requests, making the user experience smoother and faster.
+
+4. **Separation of Concerns**:
+    - By using a proxy, the responsibilities of authentication, access control, caching, and server management are separated from the core functionality of video streaming. This makes the system more modular and easier to maintain, as changes to any of the auxiliary functionalities (such as authentication or caching) can be made in the proxy without affecting the real video streaming service.
+
+## 4. How Proxy Eases Life Here
+
+1. **Reduced Redundancy**:
+    - The proxy handles the repetitive tasks of checking authentication, access control, and caching. By managing these concerns upfront, the real video streaming service only focuses on the essential task of streaming videos, eliminating the need for repetitive checks and logic.
+
+2. **Improved User Experience**:
+    - By checking the cache before fetching the video from the server, the proxy ensures faster video delivery. This is especially beneficial for users who frequently request the same videos, as the system can serve them instantly from the cache rather than re-streaming the video each time.
+
+3. **Simplified Access Control**:
+    - The proxy ensures that users with different subscription types (e.g., standard and premium) can only access content they are allowed to view. This is handled transparently, making it easier to implement and enforce access control without cluttering the core video streaming code.
+
+4. **Seamless Interaction**:
+    - Users do not need to interact with the proxy directly. They simply request videos, and the proxy ensures that all tasks such as authentication, access control, and caching are handled automatically. This makes the system easier to use and reduces the chances of errors or unexpected behavior.
+
+5. **Easier System Maintenance**:
+    - The proxy decouples the auxiliary services (such as authentication, caching, and server management) from the core video streaming logic. This makes the system easier to extend, as any changes to how videos are authenticated or served can be made within the proxy without affecting the video streaming functionality.
+
+### Conclusion
+
+The **Proxy Pattern** is an effective design pattern when there is a need to control access to a resource or service, optimize performance, or handle additional responsibilities (like caching or access control) without affecting the core logic. In this case, the **VideoStreamProxy** improves the performance, security, and scalability of the video streaming service by managing auxiliary tasks, which results in a better and more efficient user experience.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\README.md>
+</README Content=﻿# Proxy Pattern
+
+## 1. Problem Statement
+
+In modern video streaming services, there are multiple factors to consider before streaming content to users, such as authentication, subscription type (premium or standard), access control, caching, and server management. Without an efficient system, each of these steps could result in performance bottlenecks or a poor user experience. For example, every time a video is requested, the system might need to authenticate the user, check their subscription, fetch the video from a server, and cache it for future use.
+
+Handling all of these tasks each time a user requests a video can be inefficient, especially if some tasks (like checking access or fetching a video) are repetitive. Additionally, streaming directly from the server every time could lead to delays and unnecessary resource consumption.
+
+## 2. Solution Approach
+
+The **Proxy Pattern** is used to solve this problem by providing a surrogate or placeholder for the real video streaming service. The proxy handles the common tasks such as authentication, access control, caching, and server management, allowing the real video streaming service to focus only on streaming the video.
+
+In this case, the **VideoStreamProxy** acts as a mediator between the user and the real video streaming service. It checks if the user is authenticated, verifies if they have access to the requested content based on their subscription, retrieves the video from cache if available, and if not, fetches it from an optimal server. This reduces the workload of the real streaming service and optimizes the user experience by caching videos for future use and avoiding redundant operations.
+
+## 3. Why Proxy is the Best Approach
+
+The **Proxy Pattern** is ideal for this situation for the following reasons:
+
+1. **Performance Optimization**:
+    - The proxy minimizes the load on the real video streaming service by handling common tasks like authentication, access control, and caching before delegating the video streaming to the real service. This reduces unnecessary interactions with the server and improves the overall performance of the system.
+
+2. **Access Control**:
+    - The proxy ensures that only authenticated users with the appropriate subscription type can access the video content. It serves as a gatekeeper, providing an additional layer of security and access control without requiring changes to the core video streaming logic.
+
+3. **Caching**:
+    - The proxy handles caching of videos for future requests, ensuring that the system doesn't need to stream the same video repeatedly. This reduces server load and improves response times for repeated requests, making the user experience smoother and faster.
+
+4. **Separation of Concerns**:
+    - By using a proxy, the responsibilities of authentication, access control, caching, and server management are separated from the core functionality of video streaming. This makes the system more modular and easier to maintain, as changes to any of the auxiliary functionalities (such as authentication or caching) can be made in the proxy without affecting the real video streaming service.
+
+## 4. How Proxy Eases Life Here
+
+1. **Reduced Redundancy**:
+    - The proxy handles the repetitive tasks of checking authentication, access control, and caching. By managing these concerns upfront, the real video streaming service only focuses on the essential task of streaming videos, eliminating the need for repetitive checks and logic.
+
+2. **Improved User Experience**:
+    - By checking the cache before fetching the video from the server, the proxy ensures faster video delivery. This is especially beneficial for users who frequently request the same videos, as the system can serve them instantly from the cache rather than re-streaming the video each time.
+
+3. **Simplified Access Control**:
+    - The proxy ensures that users with different subscription types (e.g., standard and premium) can only access content they are allowed to view. This is handled transparently, making it easier to implement and enforce access control without cluttering the core video streaming code.
+
+4. **Seamless Interaction**:
+    - Users do not need to interact with the proxy directly. They simply request videos, and the proxy ensures that all tasks such as authentication, access control, and caching are handled automatically. This makes the system easier to use and reduces the chances of errors or unexpected behavior.
+
+5. **Easier System Maintenance**:
+    - The proxy decouples the auxiliary services (such as authentication, caching, and server management) from the core video streaming logic. This makes the system easier to extend, as any changes to how videos are authenticated or served can be made within the proxy without affecting the video streaming functionality.
+
+### Conclusion
+
+The **Proxy Pattern** is an effective design pattern when there is a need to control access to a resource or service, optimize performance, or handle additional responsibilities (like caching or access control) without affecting the core logic. In this case, the **VideoStreamProxy** improves the performance, security, and scalability of the video streaming service by managing auxiliary tasks, which results in a better and more efficient user experience.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\README.md>
+<Folder Level=1 Name=ENUM Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\ENUM>
+<File Name=SUBSCRIPTIONTYPE.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\ENUM\SUBSCRIPTIONTYPE.cs Size=92 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:00:21 2025 CreationTime=Mon Mar 24 00:59:41 2025>
+</File Name=SUBSCRIPTIONTYPE.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\ENUM\SUBSCRIPTIONTYPE.cs Size=92 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:00:21 2025 CreationTime=Mon Mar 24 00:59:41 2025>
+</Folder Level=1 Name=ENUM Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\ENUM>
+<Folder Level=1 Name=Interfaces Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Interfaces>
+<File Name=IVedioStream.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Interfaces\IVedioStream.cs Size=155 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:01:01 2025 CreationTime=Mon Mar 24 00:58:06 2025>
+</File Name=IVedioStream.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Interfaces\IVedioStream.cs Size=155 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:01:01 2025 CreationTime=Mon Mar 24 00:58:06 2025>
+</Folder Level=1 Name=Interfaces Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Interfaces>
+<Folder Level=1 Name=Model Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Model>
+<File Name=User.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Model\User.cs Size=236 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:00:21 2025 CreationTime=Mon Mar 24 00:58:45 2025>
+</File Name=User.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Model\User.cs Size=236 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:00:21 2025 CreationTime=Mon Mar 24 00:58:45 2025>
+</Folder Level=1 Name=Model Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Model>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Program.cs Size=1115 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:34:34 2025 CreationTime=Mon Mar 24 00:56:05 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Program.cs Size=1115 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:34:34 2025 CreationTime=Mon Mar 24 00:56:05 2025>
+<Folder Level=1 Name=Proxy Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Proxy>
+<File Name=VideoStreamProxy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Proxy\VideoStreamProxy.cs Size=1824 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:08:53 2025 CreationTime=Mon Mar 24 01:07:42 2025>
+</File Name=VideoStreamProxy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Proxy\VideoStreamProxy.cs Size=1824 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:08:53 2025 CreationTime=Mon Mar 24 01:07:42 2025>
+</Folder Level=1 Name=Proxy Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Proxy>
+<File Name=ProxyPatterm.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\ProxyPatterm.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 24 01:07:43 2025 CreationTime=Mon Mar 24 00:56:05 2025>
+</File Name=ProxyPatterm.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\ProxyPatterm.csproj Size=272 Bytes Extension=.csproj ModificationTime=Mon Mar 24 01:07:43 2025 CreationTime=Mon Mar 24 00:56:05 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\readme.md Size=5343 Bytes Extension=.md ModificationTime=Mon Mar 24 01:38:55 2025 CreationTime=Mon Mar 24 01:38:40 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\readme.md Size=5343 Bytes Extension=.md ModificationTime=Mon Mar 24 01:38:55 2025 CreationTime=Mon Mar 24 01:38:40 2025>
+<Folder Level=1 Name=Service Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service>
+<File Name=AuthenticationService.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service\AuthenticationService.cs Size=663 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:06:28 2025 CreationTime=Mon Mar 24 01:04:49 2025>
+</File Name=AuthenticationService.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service\AuthenticationService.cs Size=663 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:06:28 2025 CreationTime=Mon Mar 24 01:04:49 2025>
+<File Name=Cache.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service\Cache.cs Size=642 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:04:11 2025 CreationTime=Mon Mar 24 01:03:16 2025>
+</File Name=Cache.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service\Cache.cs Size=642 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:04:11 2025 CreationTime=Mon Mar 24 01:03:16 2025>
+<File Name=ServerManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service\ServerManager.cs Size=351 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:07:15 2025 CreationTime=Mon Mar 24 01:06:52 2025>
+</File Name=ServerManager.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service\ServerManager.cs Size=351 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:07:15 2025 CreationTime=Mon Mar 24 01:06:52 2025>
+<File Name=VideoStreamer.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service\VideoStreamer.cs Size=284 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:02:52 2025 CreationTime=Mon Mar 24 01:02:01 2025>
+</File Name=VideoStreamer.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service\VideoStreamer.cs Size=284 Bytes Extension=.cs ModificationTime=Mon Mar 24 01:02:52 2025 CreationTime=Mon Mar 24 01:02:01 2025>
+</Folder Level=1 Name=Service Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm\Service>
+</Folder Level=0 Name=ProxyPatterm Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\ProxyPatterm>
+<Folder Level=0 Name=SingletonClassPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern>
+<README Content=﻿# Singleton Pattern
+
+## 1. Problem Statement
+
+In many software systems, there are scenarios where only one instance of a class is required, and it should be accessible globally across the system. For example, in a mathematical application, you might need to calculate factorials multiple times. Instead of repeatedly creating new instances of the `Factorial` class, you may want to ensure that only one instance of the `Factorial` class is used throughout the application to save memory and ensure consistency.
+
+Without a solution like the Singleton Pattern, you could end up creating multiple instances of the class, leading to unnecessary memory usage and possibly inconsistent behavior. The challenge is ensuring that the class is instantiated only once and providing a global access point to that instance.
+
+## 2. Why Singleton is Used Here
+
+The **Singleton Pattern** ensures that a class has only one instance and provides a global access point to that instance. It is particularly useful when:
+- There is a need for a single, shared resource, such as a cache or a configuration object.
+- It is important to control access to a resource that can be shared across the system.
+
+In the case of the `Factorial` class, the Singleton pattern is used to ensure that only one instance of the `Factorial` class is created. This single instance manages a cache of precomputed factorial values, making the system more efficient by avoiding the need to compute the factorial of the same number repeatedly.
+
+## 3. How Singleton is Implemented
+
+In the Singleton Pattern, the key ideas are:
+
+- **Private Constructor**: The constructor of the `Factorial` class is made private to prevent external instantiation of the class. This ensures that no other instances of the class can be created directly.
+
+- **Static Instance**: A static field (`_instance`) is used to store the single instance of the class. This field is initialized lazily (i.e., only when it is needed) to ensure that the class is instantiated only once.
+
+- **Global Access Method (`GetInstance`)**: A static method (`GetInstance`) is provided to allow global access to the unique instance. When this method is called, it checks if the instance already exists. If it does, it returns the existing instance. If it doesn't, it creates a new instance and returns it.
+
+- **Singleton Instance Usage**: In the `main` method, the `GetInstance` method is called to obtain the unique `Factorial` instance, and the `GetFactorial` method is used to retrieve precomputed factorial values from the cache.
+
+## 4. What Benefits Singleton Provides Here More Than Direct Instantiation
+
+1. **Memory Efficiency**:
+    - The Singleton Pattern ensures that only one instance of the `Factorial` class is created. This reduces memory usage because no additional instances are created, even if multiple parts of the program need to access the `Factorial` class.
+
+2. **Consistency**:
+    - By using a single instance, the Singleton Pattern ensures that the state of the `Factorial` class (in this case, the precomputed factorial cache) is consistent throughout the application. This eliminates the risk of having different copies of the class with different states.
+
+3. **Global Access**:
+    - The `GetInstance` method provides a global access point to the unique instance of the `Factorial` class. This allows various parts of the application to access the same instance without needing to pass it around or create multiple instances.
+
+4. **Lazy Initialization**:
+    - The Singleton instance is created only when it is first needed, which optimizes performance by avoiding unnecessary instantiations if the class is never used.
+
+5. **Prevents Redundant Computations**:
+    - Since the `Factorial` class caches the results of previous factorial calculations, the Singleton pattern ensures that subsequent requests for the same factorial values are retrieved quickly from the cache rather than being recomputed. This improves performance, especially for repeated calls to compute factorials.
+
+### Conclusion
+
+The **Singleton Pattern** is an essential design pattern when you need to ensure that only one instance of a class exists and that this instance is accessible globally. In the case of the `Factorial` class, it provides a highly efficient, memory-friendly solution for managing a shared resource (the factorial cache) while ensuring that the system operates consistently and avoids unnecessary computation.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\README.md>
+</README Content=﻿# Singleton Pattern
+
+## 1. Problem Statement
+
+In many software systems, there are scenarios where only one instance of a class is required, and it should be accessible globally across the system. For example, in a mathematical application, you might need to calculate factorials multiple times. Instead of repeatedly creating new instances of the `Factorial` class, you may want to ensure that only one instance of the `Factorial` class is used throughout the application to save memory and ensure consistency.
+
+Without a solution like the Singleton Pattern, you could end up creating multiple instances of the class, leading to unnecessary memory usage and possibly inconsistent behavior. The challenge is ensuring that the class is instantiated only once and providing a global access point to that instance.
+
+## 2. Why Singleton is Used Here
+
+The **Singleton Pattern** ensures that a class has only one instance and provides a global access point to that instance. It is particularly useful when:
+- There is a need for a single, shared resource, such as a cache or a configuration object.
+- It is important to control access to a resource that can be shared across the system.
+
+In the case of the `Factorial` class, the Singleton pattern is used to ensure that only one instance of the `Factorial` class is created. This single instance manages a cache of precomputed factorial values, making the system more efficient by avoiding the need to compute the factorial of the same number repeatedly.
+
+## 3. How Singleton is Implemented
+
+In the Singleton Pattern, the key ideas are:
+
+- **Private Constructor**: The constructor of the `Factorial` class is made private to prevent external instantiation of the class. This ensures that no other instances of the class can be created directly.
+
+- **Static Instance**: A static field (`_instance`) is used to store the single instance of the class. This field is initialized lazily (i.e., only when it is needed) to ensure that the class is instantiated only once.
+
+- **Global Access Method (`GetInstance`)**: A static method (`GetInstance`) is provided to allow global access to the unique instance. When this method is called, it checks if the instance already exists. If it does, it returns the existing instance. If it doesn't, it creates a new instance and returns it.
+
+- **Singleton Instance Usage**: In the `main` method, the `GetInstance` method is called to obtain the unique `Factorial` instance, and the `GetFactorial` method is used to retrieve precomputed factorial values from the cache.
+
+## 4. What Benefits Singleton Provides Here More Than Direct Instantiation
+
+1. **Memory Efficiency**:
+    - The Singleton Pattern ensures that only one instance of the `Factorial` class is created. This reduces memory usage because no additional instances are created, even if multiple parts of the program need to access the `Factorial` class.
+
+2. **Consistency**:
+    - By using a single instance, the Singleton Pattern ensures that the state of the `Factorial` class (in this case, the precomputed factorial cache) is consistent throughout the application. This eliminates the risk of having different copies of the class with different states.
+
+3. **Global Access**:
+    - The `GetInstance` method provides a global access point to the unique instance of the `Factorial` class. This allows various parts of the application to access the same instance without needing to pass it around or create multiple instances.
+
+4. **Lazy Initialization**:
+    - The Singleton instance is created only when it is first needed, which optimizes performance by avoiding unnecessary instantiations if the class is never used.
+
+5. **Prevents Redundant Computations**:
+    - Since the `Factorial` class caches the results of previous factorial calculations, the Singleton pattern ensures that subsequent requests for the same factorial values are retrieved quickly from the cache rather than being recomputed. This improves performance, especially for repeated calls to compute factorials.
+
+### Conclusion
+
+The **Singleton Pattern** is an essential design pattern when you need to ensure that only one instance of a class exists and that this instance is accessible globally. In the case of the `Factorial` class, it provides a highly efficient, memory-friendly solution for managing a shared resource (the factorial cache) while ensuring that the system operates consistently and avoids unnecessary computation.
+ Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\README.md>
+<Folder Level=1 Name=MathLibrary Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\MathLibrary>
+<File Name=Factorial.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\MathLibrary\Factorial.cs Size=788 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:47:34 2025 CreationTime=Sun Mar 23 14:44:30 2025>
+</File Name=Factorial.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\MathLibrary\Factorial.cs Size=788 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:47:34 2025 CreationTime=Sun Mar 23 14:44:30 2025>
+</Folder Level=1 Name=MathLibrary Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\MathLibrary>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\Program.cs Size=347 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:47:34 2025 CreationTime=Sun Mar 23 14:43:26 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\Program.cs Size=347 Bytes Extension=.cs ModificationTime=Sun Mar 23 14:47:34 2025 CreationTime=Sun Mar 23 14:43:26 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\readme.md Size=4496 Bytes Extension=.md ModificationTime=Sun Mar 23 14:51:36 2025 CreationTime=Sun Mar 23 14:50:41 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\readme.md Size=4496 Bytes Extension=.md ModificationTime=Sun Mar 23 14:51:36 2025 CreationTime=Sun Mar 23 14:50:41 2025>
+<File Name=SingletonClassPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\SingletonClassPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 14:44:30 2025 CreationTime=Sun Mar 23 14:43:26 2025>
+</File Name=SingletonClassPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern\SingletonClassPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 14:44:30 2025 CreationTime=Sun Mar 23 14:43:26 2025>
+</Folder Level=0 Name=SingletonClassPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\SingletonClassPattern>
+<Folder Level=0 Name=StrategyPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern>
+<README Content=﻿### Problem Scenario: Implementing the Strategy Pattern in C#
+
+You are working on a C# project that requires implementing the Strategy Pattern to handle different algorithms for a specific task. The goal is to define a family of algorithms, encapsulate each one, and make them interchangeable. The Strategy Pattern allows the algorithm to vary independently from the clients that use it.
+
+### Requirements:
+1. **Context Class**: A class that uses a Strategy to perform a task.
+2. **Strategy Interface**: An interface that defines the algorithm's method.
+3. **Concrete Strategies**: Multiple classes that implement the Strategy interface with different algorithms.
+
+### Example Scenario:
+You are developing a route finding system that supports multiple route methods (e.g., Driving Route, Air Route, Train Route, Walking Route). Each route method has a different algorithm for finding the best route. You need to implement the Strategy Pattern to handle these different algorithms in a flexible and maintainable way.
+
+### Steps to Implement:
+
+1. **Define the Strategy Interface**:
+    ```csharp
+    public interface IRouteStrategy
+    {
+        void Execute();
+    }
+    ```
+
+2. **Implement Concrete Strategies**:
+    ```csharp
+    public class AirRouteStrategy : IRouteStrategy
+    {
+        public void Execute()
+        {
+            Console.WriteLine("Calculating air route...");
+        }
+    }
+
+    ...
+    ```
+
+3. **Create the Context Class**:
+    ```csharp
+    public class RouteContext
+    {
+        private IRouteStrategy _routeStrategy;
+
+        public void SetRouteStrategy(IRouteStrategy routeStrategy)
+        {
+            _routeStrategy = routeStrategy;
+        }
+
+        public void FindRoute()
+        {
+            _routeStrategy.Execute();
+        }
+    }
+    ```
+
+This scenario shows how to use the Strategy Pattern to handle different route algorithms in a route finding system. By implementing the Strategy Pattern, you can easily switch between different route methods without changing the client code.
+
+> Note : Program class is the part of client code which is using the strategy pattern to find the route. so it can have `if...else` or `switch` case to select the strategy at runtime. Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\README.md>
+</README Content=﻿### Problem Scenario: Implementing the Strategy Pattern in C#
+
+You are working on a C# project that requires implementing the Strategy Pattern to handle different algorithms for a specific task. The goal is to define a family of algorithms, encapsulate each one, and make them interchangeable. The Strategy Pattern allows the algorithm to vary independently from the clients that use it.
+
+### Requirements:
+1. **Context Class**: A class that uses a Strategy to perform a task.
+2. **Strategy Interface**: An interface that defines the algorithm's method.
+3. **Concrete Strategies**: Multiple classes that implement the Strategy interface with different algorithms.
+
+### Example Scenario:
+You are developing a route finding system that supports multiple route methods (e.g., Driving Route, Air Route, Train Route, Walking Route). Each route method has a different algorithm for finding the best route. You need to implement the Strategy Pattern to handle these different algorithms in a flexible and maintainable way.
+
+### Steps to Implement:
+
+1. **Define the Strategy Interface**:
+    ```csharp
+    public interface IRouteStrategy
+    {
+        void Execute();
+    }
+    ```
+
+2. **Implement Concrete Strategies**:
+    ```csharp
+    public class AirRouteStrategy : IRouteStrategy
+    {
+        public void Execute()
+        {
+            Console.WriteLine("Calculating air route...");
+        }
+    }
+
+    ...
+    ```
+
+3. **Create the Context Class**:
+    ```csharp
+    public class RouteContext
+    {
+        private IRouteStrategy _routeStrategy;
+
+        public void SetRouteStrategy(IRouteStrategy routeStrategy)
+        {
+            _routeStrategy = routeStrategy;
+        }
+
+        public void FindRoute()
+        {
+            _routeStrategy.Execute();
+        }
+    }
+    ```
+
+This scenario shows how to use the Strategy Pattern to handle different route algorithms in a route finding system. By implementing the Strategy Pattern, you can easily switch between different route methods without changing the client code.
+
+> Note : Program class is the part of client code which is using the strategy pattern to find the route. so it can have `if...else` or `switch` case to select the strategy at runtime. Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\README.md>
+<Folder Level=1 Name=ContextClass Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\ContextClass>
+<File Name=RouteFinder.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\ContextClass\RouteFinder.cs Size=472 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:42:16 2025 CreationTime=Sun Mar 23 01:37:50 2025>
+</File Name=RouteFinder.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\ContextClass\RouteFinder.cs Size=472 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:42:16 2025 CreationTime=Sun Mar 23 01:37:50 2025>
+</Folder Level=1 Name=ContextClass Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\ContextClass>
+<Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\Interface>
+<File Name=IRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\Interface\IRouteStrategy.cs Size=101 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:33:49 2025 CreationTime=Sun Mar 23 00:52:16 2025>
+</File Name=IRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\Interface\IRouteStrategy.cs Size=101 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:33:49 2025 CreationTime=Sun Mar 23 00:52:16 2025>
+</Folder Level=1 Name=Interface Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\Interface>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\Program.cs Size=1303 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:43:20 2025 CreationTime=Sun Mar 23 00:51:00 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\Program.cs Size=1303 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:43:20 2025 CreationTime=Sun Mar 23 00:51:00 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\readme.md Size=2269 Bytes Extension=.md ModificationTime=Sun Mar 23 02:36:33 2025 CreationTime=Sun Mar 23 02:01:29 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\readme.md Size=2269 Bytes Extension=.md ModificationTime=Sun Mar 23 02:36:33 2025 CreationTime=Sun Mar 23 02:01:29 2025>
+<Folder Level=1 Name=RouteStrategies Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies>
+<File Name=AirRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies\AirRouteStrategy.cs Size=237 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:42:16 2025 CreationTime=Sun Mar 23 01:36:55 2025>
+</File Name=AirRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies\AirRouteStrategy.cs Size=237 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:42:16 2025 CreationTime=Sun Mar 23 01:36:55 2025>
+<File Name=DrivingRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies\DrivingRouteStrategy.cs Size=245 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:33:49 2025 CreationTime=Sun Mar 23 00:53:13 2025>
+</File Name=DrivingRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies\DrivingRouteStrategy.cs Size=245 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:33:49 2025 CreationTime=Sun Mar 23 00:53:13 2025>
+<File Name=TrainRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies\TrainRouteStrategy.cs Size=241 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:33:49 2025 CreationTime=Sun Mar 23 01:01:04 2025>
+</File Name=TrainRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies\TrainRouteStrategy.cs Size=241 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:33:49 2025 CreationTime=Sun Mar 23 01:01:04 2025>
+<File Name=WalkingRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies\WalkingRouteStrategy.cs Size=245 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:33:49 2025 CreationTime=Sun Mar 23 00:58:09 2025>
+</File Name=WalkingRouteStrategy.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies\WalkingRouteStrategy.cs Size=245 Bytes Extension=.cs ModificationTime=Sun Mar 23 01:33:49 2025 CreationTime=Sun Mar 23 00:58:09 2025>
+</Folder Level=1 Name=RouteStrategies Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\RouteStrategies>
+<File Name=StrategyPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\StrategyPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 01:37:50 2025 CreationTime=Sun Mar 23 00:51:00 2025>
+</File Name=StrategyPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern\StrategyPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 01:37:50 2025 CreationTime=Sun Mar 23 00:51:00 2025>
+</Folder Level=0 Name=StrategyPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\StrategyPattern>
+<Folder Level=0 Name=TemplateMethodPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern>
+<README Content=﻿# Template Method Pattern
+
+## Problem Statement
+
+Imagine you're designing a system for making hot beverages, like **tea** and **coffee**. The general process for making any hot beverage involves similar steps:
+
+1. Boil water
+2. Brew the beverage (tea or coffee)
+3. Pour into a cup
+4. Add condiments (like sugar, milk, or lemon)
+5. Serve
+
+However, the steps for brewing and adding condiments differ between beverages. For example:
+- When making **tea**, you steep the tea leaves, and you might add lemon.
+- When making **coffee**, you drip the coffee through a filter, and you might add sugar and milk.
+
+Now, you want to make sure that all beverages follow the same general steps but allow the brewing and condiments part to vary based on the type of beverage.
+
+---
+
+## Solution Approach
+
+The **Template Method Pattern** is a behavioral design pattern that defines the skeleton of an algorithm in a method, called the **template method**, which allows subclasses to redefine certain steps of the algorithm without changing its structure.
+
+### Key Concepts:
+1. **Abstract Class**: This class defines the general steps of the algorithm (in this case, the process of making a beverage), where some steps are defined while others are abstract and must be implemented by subclasses.
+2. **Concrete Subclasses**: These are responsible for implementing the varying parts of the algorithm (brewing the tea or coffee and adding condiments).
+
+### How the Template Method Works:
+- The **DrinkMakerTemplate** class provides the template method `MakeDrink()`, which executes the steps for making any beverage in a fixed order.
+- The steps of boiling water, pouring into a cup, and serving are common for all drinks, so they are implemented in the **abstract class**.
+- The steps for brewing the beverage and adding condiments are abstract methods, meaning that each subclass (like **CoffeeMaker** or **TeaMaker**) provides its own implementation of these steps.
+
+### The Structure:
+
+1. **Abstract Class (`DrinkMakerTemplate`)**:
+    - Defines common steps (`BoilWater`, `PourInCup`, `Serve`) that are shared across all beverages.
+    - Contains abstract methods (`Brew`, `AddCondiments`) that must be implemented by subclasses to handle specific details of brewing and condiments.
+
+2. **Concrete Subclasses (`CoffeeMaker`, `TeaMaker`)**:
+    - Implement the abstract methods `Brew` and `AddCondiments` according to the specifics of making tea or coffee.
+
+
+
+### Expected Output:
+
+```
+Boiling water...
+Brewing coffee...
+Pouring in cup...
+Adding sugar and milk...
+Serving...
+
+Boiling water...
+Steeping the tea...
+Pouring in cup...
+Adding lemon...
+Serving...
+```
+
+## Justification for Using Template Method Pattern
+
+1. **Code Reusability**: By defining common steps in the abstract class, we eliminate the need to repeat them in each subclass. This reduces code duplication, making the system easier to maintain.
+
+2. **Flexibility**: The template method enforces a consistent algorithm while allowing subclasses to customize specific steps (like brewing and condiments). This is ideal for cases where the general process is the same but individual steps can vary.
+
+3. **Control Over Algorithm**: The template method ensures that the core structure of the algorithm (making a beverage) is fixed, preventing any subclass from altering the fundamental process. Subclasses are only allowed to implement the details, ensuring consistency in the final outcome.
+
+4. **Encapsulation**: The abstract class hides the implementation details of common steps and only exposes the `MakeDrink` method to the client, ensuring that users cannot accidentally disrupt the order or logic of the process.
+
+
+### Conclusion
+
+The **Template Method Pattern** is an essential design pattern when you need to define a general structure for an algorithm but allow for specific details to be customized. In the context of making beverages, the pattern ensures consistency in the overall process while allowing the flexibility to adapt to different types of drinks (like tea and coffee). This design pattern helps in reducing redundancy, improving maintainability, and ensuring that the correct steps are always followed. Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\README.md>
+</README Content=﻿# Template Method Pattern
+
+## Problem Statement
+
+Imagine you're designing a system for making hot beverages, like **tea** and **coffee**. The general process for making any hot beverage involves similar steps:
+
+1. Boil water
+2. Brew the beverage (tea or coffee)
+3. Pour into a cup
+4. Add condiments (like sugar, milk, or lemon)
+5. Serve
+
+However, the steps for brewing and adding condiments differ between beverages. For example:
+- When making **tea**, you steep the tea leaves, and you might add lemon.
+- When making **coffee**, you drip the coffee through a filter, and you might add sugar and milk.
+
+Now, you want to make sure that all beverages follow the same general steps but allow the brewing and condiments part to vary based on the type of beverage.
+
+---
+
+## Solution Approach
+
+The **Template Method Pattern** is a behavioral design pattern that defines the skeleton of an algorithm in a method, called the **template method**, which allows subclasses to redefine certain steps of the algorithm without changing its structure.
+
+### Key Concepts:
+1. **Abstract Class**: This class defines the general steps of the algorithm (in this case, the process of making a beverage), where some steps are defined while others are abstract and must be implemented by subclasses.
+2. **Concrete Subclasses**: These are responsible for implementing the varying parts of the algorithm (brewing the tea or coffee and adding condiments).
+
+### How the Template Method Works:
+- The **DrinkMakerTemplate** class provides the template method `MakeDrink()`, which executes the steps for making any beverage in a fixed order.
+- The steps of boiling water, pouring into a cup, and serving are common for all drinks, so they are implemented in the **abstract class**.
+- The steps for brewing the beverage and adding condiments are abstract methods, meaning that each subclass (like **CoffeeMaker** or **TeaMaker**) provides its own implementation of these steps.
+
+### The Structure:
+
+1. **Abstract Class (`DrinkMakerTemplate`)**:
+    - Defines common steps (`BoilWater`, `PourInCup`, `Serve`) that are shared across all beverages.
+    - Contains abstract methods (`Brew`, `AddCondiments`) that must be implemented by subclasses to handle specific details of brewing and condiments.
+
+2. **Concrete Subclasses (`CoffeeMaker`, `TeaMaker`)**:
+    - Implement the abstract methods `Brew` and `AddCondiments` according to the specifics of making tea or coffee.
+
+
+
+### Expected Output:
+
+```
+Boiling water...
+Brewing coffee...
+Pouring in cup...
+Adding sugar and milk...
+Serving...
+
+Boiling water...
+Steeping the tea...
+Pouring in cup...
+Adding lemon...
+Serving...
+```
+
+## Justification for Using Template Method Pattern
+
+1. **Code Reusability**: By defining common steps in the abstract class, we eliminate the need to repeat them in each subclass. This reduces code duplication, making the system easier to maintain.
+
+2. **Flexibility**: The template method enforces a consistent algorithm while allowing subclasses to customize specific steps (like brewing and condiments). This is ideal for cases where the general process is the same but individual steps can vary.
+
+3. **Control Over Algorithm**: The template method ensures that the core structure of the algorithm (making a beverage) is fixed, preventing any subclass from altering the fundamental process. Subclasses are only allowed to implement the details, ensuring consistency in the final outcome.
+
+4. **Encapsulation**: The abstract class hides the implementation details of common steps and only exposes the `MakeDrink` method to the client, ensuring that users cannot accidentally disrupt the order or logic of the process.
+
+
+### Conclusion
+
+The **Template Method Pattern** is an essential design pattern when you need to define a general structure for an algorithm but allow for specific details to be customized. In the context of making beverages, the pattern ensures consistency in the overall process while allowing the flexibility to adapt to different types of drinks (like tea and coffee). This design pattern helps in reducing redundancy, improving maintainability, and ensuring that the correct steps are always followed. Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\README.md>
+<Folder Level=1 Name=AbstractTemplate Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\AbstractTemplate>
+<File Name=DrinkMakerTemplate.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\AbstractTemplate\DrinkMakerTemplate.cs Size=1906 Bytes Extension=.cs ModificationTime=Sun Mar 23 03:31:01 2025 CreationTime=Sun Mar 23 03:22:38 2025>
+</File Name=DrinkMakerTemplate.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\AbstractTemplate\DrinkMakerTemplate.cs Size=1906 Bytes Extension=.cs ModificationTime=Sun Mar 23 03:31:01 2025 CreationTime=Sun Mar 23 03:22:38 2025>
+</Folder Level=1 Name=AbstractTemplate Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\AbstractTemplate>
+<Folder Level=1 Name=ConcreteSubclasses Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\ConcreteSubclasses>
+<File Name=CoffeeMaker.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\ConcreteSubclasses\CoffeeMaker.cs Size=380 Bytes Extension=.cs ModificationTime=Sun Mar 23 03:31:01 2025 CreationTime=Sun Mar 23 03:28:51 2025>
+</File Name=CoffeeMaker.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\ConcreteSubclasses\CoffeeMaker.cs Size=380 Bytes Extension=.cs ModificationTime=Sun Mar 23 03:31:01 2025 CreationTime=Sun Mar 23 03:28:51 2025>
+<File Name=TeaMaker.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\ConcreteSubclasses\TeaMaker.cs Size=370 Bytes Extension=.cs ModificationTime=Sun Mar 23 03:31:01 2025 CreationTime=Sun Mar 23 03:29:17 2025>
+</File Name=TeaMaker.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\ConcreteSubclasses\TeaMaker.cs Size=370 Bytes Extension=.cs ModificationTime=Sun Mar 23 03:31:01 2025 CreationTime=Sun Mar 23 03:29:17 2025>
+</Folder Level=1 Name=ConcreteSubclasses Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\ConcreteSubclasses>
+<File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\Program.cs Size=652 Bytes Extension=.cs ModificationTime=Sun Mar 23 03:33:30 2025 CreationTime=Sun Mar 23 03:21:24 2025>
+</File Name=Program.cs Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\Program.cs Size=652 Bytes Extension=.cs ModificationTime=Sun Mar 23 03:33:30 2025 CreationTime=Sun Mar 23 03:21:24 2025>
+<File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\readme.md Size=4248 Bytes Extension=.md ModificationTime=Sun Mar 23 03:38:50 2025 CreationTime=Sun Mar 23 03:34:10 2025>
+</File Name=readme.md Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\readme.md Size=4248 Bytes Extension=.md ModificationTime=Sun Mar 23 03:38:50 2025 CreationTime=Sun Mar 23 03:34:10 2025>
+<File Name=TemplateMethodPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\TemplateMethodPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 03:28:51 2025 CreationTime=Sun Mar 23 03:21:24 2025>
+</File Name=TemplateMethodPattern.csproj Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern\TemplateMethodPattern.csproj Size=272 Bytes Extension=.csproj ModificationTime=Sun Mar 23 03:28:51 2025 CreationTime=Sun Mar 23 03:21:24 2025>
+</Folder Level=0 Name=TemplateMethodPattern Path=F:\iut\5th_Sem_labs\DP_Final\DesignPatterns\TemplateMethodPattern>
+</FolderData>
