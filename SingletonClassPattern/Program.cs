@@ -1,3 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using SingletonClassPattern.MathLibrary;
 
-Console.WriteLine("Hello, World!");
+class main
+{
+    public static void Main(string[] args)
+    {
+        Factorial fac = Factorial.GetInstance();
+        System.Console.WriteLine(fac.GetFactorial(5));
+        System.Console.WriteLine(fac.GetFactorial(10));
+        System.Console.WriteLine(fac.GetFactorial(15));
+    }
+    
+}
