@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ERJ7RMSCvY0=",
+  "success": true,
+  "projectFilePath": "D:\\1_course_work\\sem5\\Design_principle\\MementoPattern\\MementoPattern.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sakha\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
