@@ -16,6 +16,10 @@ In this case, the **HomeSystemFacade** serves as the facade that unifies multipl
 
 By using the Facade Pattern, we can streamline the user experience, making it easier to perform complex actions with a single method call.
 
+## UML Diagram
+
+![facade](../diagrams/uml-facade.png)
+
 ## 3. Why Facade is the Best Approach
 
 The **Facade Pattern** is ideal here because it solves the following problems:

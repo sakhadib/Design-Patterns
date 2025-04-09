@@ -8,6 +8,10 @@ For example, the marketing team may need to communicate with the development tea
 
 This creates the problem of managing multiple inter-team communications effectively and ensuring that messages are directed appropriately without overloading any team.
 
+## UML Diagram
+
+![](../diagrams/uml-mediator.png)
+
 ## 2. Solution Approach
 
 The **Mediator Pattern** provides a solution by centralizing communication between objects (in this case, teams) through a mediator. Instead of teams communicating directly with each other, they send messages to a mediator that handles the message routing. The mediator is responsible for ensuring that each team gets the necessary messages and facilitates communication between them.

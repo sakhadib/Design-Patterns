@@ -8,6 +8,9 @@ Additionally, as the user makes changes, it’s necessary to maintain a history 
 
 The challenge is to provide a simple way to track the editor's state over time, store it efficiently, and restore previous states on request.
 
+## UML Diagram
+![](../diagrams/uml-memento.png)
+
 ## 2. Solution Approach
 
 The **Memento Pattern** provides a solution to this problem by allowing the system to capture and store the internal state of an object (in this case, the document editor) without exposing its details. The **Editor** object (the originator) creates a snapshot of its current state (text, cursor position, and selection) and stores it in a **Memento** object.

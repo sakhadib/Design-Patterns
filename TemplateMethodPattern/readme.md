@@ -18,6 +18,9 @@ Now, you want to make sure that all beverages follow the same general steps but 
 
 ---
 
+## UML Diagram
+![](../diagrams/uml-template.png)
+
 ## Solution Approach
 
 The **Template Method Pattern** is a behavioral design pattern that defines the skeleton of an algorithm in a method, called the **template method**, which allows subclasses to redefine certain steps of the algorithm without changing its structure.

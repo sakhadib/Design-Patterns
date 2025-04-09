@@ -6,6 +6,12 @@ The Factory Method Pattern is used to decouple the creation of different route-f
 
 Each strategy (like `AirRouteStrategy`, `DrivingRouteStrategy`, `TrainRouteStrategy`, etc.) is encapsulated as a separate class that implements the `IRouteStrategy` interface. The `RouteFinder` class uses this strategy to call the appropriate `FindRoute` method.
 
+
+### UML diagram
+
+![](../diagrams/uml-strategy.png)
+
+
 ### 3. Why This Is the Solution and Better Design
 Using the Factory Method Pattern offers several benefits that enhance the design and scalability of the system:
 - **Separation of Concerns**: The `RouteFinder` focuses only on finding routes, while the `RouteStrategyFactory` is responsible for creating the appropriate strategy. This makes the code more organized and modular.

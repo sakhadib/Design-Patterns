@@ -14,6 +14,11 @@ The **Adapter Pattern** is used to create a common interface (`IPaymentAdapter`)
 
 Without the Adapter pattern, the client code would need to know the specifics of each payment method’s implementation and interact with each one using different methods and arguments. The Adapter pattern allows the system to work with different third-party services uniformly by adapting their unique interfaces to a common interface, reducing complexity and coupling in the code.
 
+## UML Diagram
+
+![!adepter](../diagrams/uml-adapter.png)
+
+
 ## 3. How Adapter is Implemented
 
 In the Adapter Pattern, we have the following key elements:

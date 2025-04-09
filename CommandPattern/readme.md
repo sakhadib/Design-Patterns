@@ -20,6 +20,9 @@ The **Command Pattern** also helps in tracking a history of commands. When a use
 
 Commands are independent, meaning that each command can handle a specific action, such as adding text or bolding it, without affecting other operations. This makes the system modular and extensible, as new actions can be added easily by creating new command classes.
 
+## UML Diagram
+![Command Pattern UML](../diagrams/uml-command.png)
+
 ## 3. Why Command is the Best Approach
 
 The **Command Pattern** is ideal for this situation for the following reasons:

@@ -6,6 +6,9 @@ In modern video streaming services, there are multiple factors to consider befor
 
 Handling all of these tasks each time a user requests a video can be inefficient, especially if some tasks (like checking access or fetching a video) are repetitive. Additionally, streaming directly from the server every time could lead to delays and unnecessary resource consumption.
 
+## UML Diagram
+![](../diagrams/uml-proxy.png)
+
 ## 2. Solution Approach
 
 The **Proxy Pattern** is used to solve this problem by providing a surrogate or placeholder for the real video streaming service. The proxy handles the common tasks such as authentication, access control, caching, and server management, allowing the real video streaming service to focus only on streaming the video.

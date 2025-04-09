@@ -8,6 +8,10 @@ This project involves developing a modular system for home automation that react
 
 Each feature is represented as a GitHub issue to be completed:
 
+## UML Diagram
+> [visit this link](https://drive.google.com/file/d/1XMzUYGwFQxp1wtIRIxqnzyz5fUGn0j3e/view?usp=sharing)
+
+
 ### Issue #1: Core System Framework
 
 Implement the foundational architecture that enables components to communicate with each other indirectly. This should include:

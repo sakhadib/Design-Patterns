@@ -10,6 +10,9 @@ You are working on a C# project that requires implementing the Strategy Pattern 
 ### Example Scenario:
 You are developing a route finding system that supports multiple route methods (e.g., Driving Route, Air Route, Train Route, Walking Route). Each route method has a different algorithm for finding the best route. You need to implement the Strategy Pattern to handle these different algorithms in a flexible and maintainable way.
 
+### UML Diagram
+![](../diagrams/uml-strategy.png)
+
 ### Steps to Implement:
 
 1. **Define the Strategy Interface**:

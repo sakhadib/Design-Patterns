@@ -14,6 +14,9 @@ The **Singleton Pattern** ensures that a class has only one instance and provide
 
 In the case of the `Factorial` class, the Singleton pattern is used to ensure that only one instance of the `Factorial` class is created. This single instance manages a cache of precomputed factorial values, making the system more efficient by avoiding the need to compute the factorial of the same number repeatedly.
 
+## UML Diagram
+![](../diagrams/uml-singleton.png)
+
 ## 3. How Singleton is Implemented
 
 In the Singleton Pattern, the key ideas are:

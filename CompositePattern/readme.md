@@ -21,6 +21,10 @@ The **Composite Pattern** is a structural design pattern that allows you to trea
 3. **Composite (`Folder`)**:
    - This class represents a folder, which is a composite node. It contains a list of `IFileSystemComponent` objects, allowing it to hold both files and other folders. It also implements the `Display` method to show the folder's name and recursively display the contents inside.
 
+### UML Diagram:
+
+![Composite](../diagrams/uml-composite.png)
+
 ### Flow:
 - The `Folder` class can hold both files and other folders, and the `ShuvroFile` class represents the individual files.
 - When displaying the file system structure, the `Display` method recursively traverses the hierarchy, printing the names of all files and folders with proper indentation to reflect the hierarchy.

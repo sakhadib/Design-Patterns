@@ -10,6 +10,10 @@ Without the Decorator Pattern, you would need to subclass `Coffee` for every pos
 
 The **Decorator Pattern** is a structural design pattern that allows you to dynamically add behavior or responsibilities to an object. Instead of creating a new subclass for each combination of customizations, we create decorators that wrap the original object (in this case, `Coffee`) and add the extra functionality.
 
+### UML Diagram
+
+![decorator](../diagrams/uml-decorator.png)
+
 ### Key Components:
 
 1. **Base Component (`Coffee`)**:
