@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FacadePattern")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a15b9903cb3f13743959929a79cb8b7d57bc942")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47afd2ee1624bdd86a3d88e6b078743646d02aa6")]
 [assembly: System.Reflection.AssemblyProductAttribute("FacadePattern")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FacadePattern")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
