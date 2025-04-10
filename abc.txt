@@ -1,0 +1,43 @@
+public interface IClone
+{
+    IClone Clone();
+}
+
+public class Circle : IClone
+{
+    private float x;
+    private float y;
+    private float radius;
+
+    public Circle(float x, float y, float radius)
+    {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+    }
+
+    public IClone Clone()
+    {
+        IClone c = new Circle(x, y, radius);
+        return c;
+    }
+
+    public float GetRadius()
+    {
+        return radius;
+    }
+}
+
+
+public static class Program
+{
+    public static void Main(string[] args)
+    {
+        Circle c1 = new Circle(10, 20, 30);
+        IClone c2 = c1.Clone();
+
+        Console.WriteLine($"Original Circle: {c1.GetRadius()}"); // Output: 30
+        Console.WriteLine($"Cloned Circle: {(circle)c2.GetRadius()}");  // Output: 30
+        
+    }
+}

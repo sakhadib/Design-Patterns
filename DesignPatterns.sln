@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverPattern", "Observer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrototypePattern", "PrototypePattern\PrototypePattern.csproj", "{052019D2-62D8-40CC-B436-E77A939F1EE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyWeightPattern", "FlyWeightPattern\FlyWeightPattern.csproj", "{63CE1BF3-7B52-4C64-B84C-8E9E76C969D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,5 +92,9 @@ Global
 		{052019D2-62D8-40CC-B436-E77A939F1EE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{052019D2-62D8-40CC-B436-E77A939F1EE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{052019D2-62D8-40CC-B436-E77A939F1EE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63CE1BF3-7B52-4C64-B84C-8E9E76C969D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63CE1BF3-7B52-4C64-B84C-8E9E76C969D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63CE1BF3-7B52-4C64-B84C-8E9E76C969D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63CE1BF3-7B52-4C64-B84C-8E9E76C969D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

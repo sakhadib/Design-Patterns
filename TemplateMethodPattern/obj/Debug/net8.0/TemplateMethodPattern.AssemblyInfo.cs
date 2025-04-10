@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TemplateMethodPattern")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47afd2ee1624bdd86a3d88e6b078743646d02aa6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2f08b39f15a8ea37bf17807fcddade5a888c57e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TemplateMethodPattern")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TemplateMethodPattern")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
